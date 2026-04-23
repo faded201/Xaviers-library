@@ -1,0 +1,136 @@
+{
+  "story_engine": {
+    "system_role": "You are the master autopilot engine for a 388-book universe. You act as a story engine, continuity engine, visual planning engine, and memory tracking engine.",
+    "primary_goals": [
+      "Keep continuity strict.",
+      "Keep character appearances consistent.",
+      "Keep world rules stable.",
+      "Keep writing direct, clear, and easy to follow.",
+      "Make outputs usable for smaller local models, TTS, and image generation."
+    ],
+    "global_rules": [
+      "Never reset the universe.",
+      "Never contradict prior lore.",
+      "Never change a character's appearance unless explicitly told to do so.",
+      "Never break established world rules.",
+      "Do not use vague filler.",
+      "Do not add random twists without setup.",
+      "Keep scenes visually clear.",
+      "Keep prose smooth for TTS.",
+      "Keep image prompts consistent with the story.",
+      "Prefer clarity over complexity.",
+      "Use direct, concrete language."
+    ],
+    "world_defaults": {
+      "setting": "dark sci-fi fantasy with ancient AI ruins",
+      "technology_level": "lost advanced technology fused with ritual systems and memory-reactive relics",
+      "tone": "mysterious and epic",
+      "magic_system": "ancient AI relics, bloodline interfaces, and memory-reactive ruins behave like a magic system with hard costs",
+      "rules": [
+        "Ancient AI systems and ruined ritual machinery must coexist without contradiction.",
+        "City architecture, bridge networks, and ruin interfaces must stay visually consistent.",
+        "Scale can grow from city to planet, but only when the story earns it."
+      ]
+    },
+    "style_defaults": {
+      "writing_style": [
+        "direct",
+        "concrete",
+        "easy to follow",
+        "cinematic",
+        "structured",
+        "TTS-friendly"
+      ],
+      "pacing": "slow build, explosive payoff",
+      "story_tone": "immersive, emotional, intense",
+      "visual_style": "cinematic, ultra detailed, consistent lighting"
+    },
+    "output_contract": {
+      "format": "strict_json",
+      "fields": [
+        "subtitle",
+        "summary",
+        "image_style",
+        "beats",
+        "memory_tracking"
+      ]
+    }
+  },
+  "visual_engine": {
+    "style_lock": "dark cinematic fantasy, ultra detailed, realistic lighting, volumetric fog, 4k, dramatic shadows, consistent color palette (deep blues, gold accents), film still, sharp focus",
+    "world_rules": "ancient ruined world with advanced lost technology, floating structures, glowing symbols, mist-filled atmosphere, same architecture style throughout",
+    "character_lock": "(main character: Kael) male, 28, pale skin, sharp jawline, long black hair tied back, glowing blue eyes, wearing dark leather armor with gold engravings, always serious expression",
+    "camera": "mid shot or wide cinematic shot, low angle, depth of field",
+    "mood": "mysterious, tense, epic, immersive",
+    "default_scene": "Kael standing on a broken floating bridge overlooking a massive glowing city in the clouds, energy storms forming in the distance"
+  },
+  "continuity": {
+    "world_bible": {
+      "rules_of_world": [
+        "World rules do not change without setup.",
+        "Location design stays stable across scenes and books.",
+        "Power systems always have clear costs and visible consequences."
+      ],
+      "tech_level": "ruined advanced technology supported by salvage-level daily tools",
+      "magic_system": "ancient AI ruins, bloodline interfaces, signal glyphs, and memory-reactive artifacts",
+      "visual_style_notes": [
+        "Deep blue fog, gold machine light, black stone, and floating bridge silhouettes define the setting.",
+        "Scenes should remain clear, readable, and visually consistent for image generation.",
+        "Keep compositions cinematic, grounded, and easy for smaller models to follow."
+      ]
+    },
+    "world_state": {
+      "setting": "dark sci-fi fantasy with ancient AI ruins",
+      "technology_level": "lost advanced technology fused with ritual systems and memory-reactive relics",
+      "tone": "mysterious and epic",
+      "rules": [
+        "Ancient AI ruins remain active through signal, bloodline, and memory interfaces.",
+        "Floating structures and glowing symbols are stable visual rules of the world.",
+        "Scale expands from city to planet only when earned by the plot."
+      ]
+    },
+    "characters": [
+      {
+        "name": "Kael",
+        "appearance": "male, 28, pale skin, sharp jawline, long black hair tied back, glowing blue eyes, dark leather armor with gold engravings",
+        "traits": "quiet, strategic, emotionally guarded",
+        "goals": "survive, uncover the truth of the lost world, and stop ruin systems from being weaponized",
+        "evolution": "slowly evolving into a powerful figure while remaining controlled and emotionally scarred"
+      }
+    ],
+    "locations": [
+      "Nhal Veil",
+      "floating bridge districts",
+      "ancient AI ruins",
+      "mist-filled relay towers",
+      "glowing city in the clouds"
+    ],
+    "plot_threads": [
+      {
+        "thread": "mystery 1",
+        "status": "open",
+        "twist_potential": "high"
+      },
+      {
+        "thread": "villain plan",
+        "status": "building",
+        "twist_potential": "high"
+      },
+      {
+        "thread": "hidden truth",
+        "status": "hidden",
+        "twist_potential": "high"
+      }
+    ],
+    "unresolved_threads": [
+      "Who built the oldest AI ruins still answering Kael.",
+      "What Kael's bloodline is meant to unlock.",
+      "Who is guiding the villain plan beyond the city."
+    ],
+    "continuity_notes": [
+      "Keep Kael's appearance stable.",
+      "Do not reset the universe or rewrite prior events.",
+      "Do not break location design or world rules without setup."
+    ]
+  }
+}

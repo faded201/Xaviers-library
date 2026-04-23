@@ -1,0 +1,64 @@
+{
+  "global_style_profile": {
+    "art_style": "dark vampire RPG, anime and manga hybrid, semi-realistic anime proportions",
+    "lighting_rules": "high contrast lighting, dramatic shadows, volumetric fog, rich blacks, deep reds, muted blues, gold highlights",
+    "color_palette": ["#05040A", "#2B0C18", "#1B2A4A", "#7C1220", "#C6A04E"],
+    "texture_level": "detailed textures, cinematic surface detail, worn stone, aged metal, fabric grain",
+    "camera_style": "cinematic composition, strong framing, clear silhouettes, readable depth",
+    "rendering_quality": "high detail, sharp focus, stable anatomy, stable props, stable architecture"
+  },
+  "character_sheets": [
+    {
+      "name": "Kael",
+      "visual_identity": {
+        "face_shape": "sharp jawline, narrow face",
+        "hair": "long black hair tied back",
+        "eyes": "glowing blue",
+        "skin": "pale",
+        "body_type": "lean, athletic"
+      },
+      "clothing": {
+        "outfit": "dark leather armor with gold engravings",
+        "materials": "leather, dark cloth, engraved gold trim",
+        "colors": ["dark black", "gold", "deep blue"]
+      },
+      "signature_traits": ["always serious expression", "controlled posture", "quiet intensity"],
+      "pose_style": "upright, alert, strategic, ready to move",
+      "master_image_prompt": "Kael, pale-skinned male age 28, sharp jawline, long black hair tied back, glowing blue eyes, dark leather armor with gold engravings, serious expression, lean athletic body, upright controlled stance, dark vampire RPG style, anime manga hybrid, high contrast lighting, gothic atmosphere, detailed textures, cinematic composition, dramatic shadows, rich blacks, deep reds, muted blues, semi-realistic anime proportions"
+    }
+  ],
+  "object_and_item_dictionary": [
+    {
+      "name": "Teren's Blade",
+      "type": "weapon",
+      "description": "black-blue blade with gold signal lines, worn but important",
+      "special_features": ["reacts to ruin systems", "hums near hidden relays", "glows faint gold under storm light"],
+      "master_image_prompt": "black-blue ancient blade with gold circuitry lines, worn surface, subtle glow, dark vampire RPG style, anime manga hybrid, high contrast lighting, gothic atmosphere, cinematic close-up"
+    }
+  ],
+  "location_dictionary": [
+    {
+      "name": "Nhal Veil",
+      "type": "floating city",
+      "visual_design": "stacked vertical districts, broken bridges, cathedral-like machine towers, fog-filled voids between layers",
+      "lighting": "deep blue storm glow with gold signal lights",
+      "mood": "tense, secretive, unstable",
+      "master_image_prompt": "floating dark sci-fi fantasy city with stacked vertical districts, broken sky bridges, cathedral-like machine towers, deep blue fog, gold signal lights, gothic atmosphere, cinematic wide shot, dark vampire RPG anime manga hybrid style"
+    }
+  ],
+  "scene_image_prompts": [
+    {
+      "scene_id": "SCENE 1",
+      "image_prompt": "Kael standing on a broken floating bridge overlooking a massive glowing city in the clouds, energy storms forming in the distance, dark vampire RPG style, anime manga hybrid, high contrast lighting, gothic atmosphere, detailed textures, cinematic composition, dramatic shadows, rich blacks, deep reds, muted blues, semi-realistic anime proportions, wide cinematic shot, low angle, depth of field",
+      "style_consistency_reference": "Keep Kael's appearance, color palette, and city architecture identical across scenes."
+    }
+  ],
+  "consistency_rules": [
+    "Kael always has pale skin, tied-back long black hair, glowing blue eyes, and dark leather armor with gold engravings.",
+    "The world always uses deep blue fog, red shadow accents, and gold machine light.",
+    "City architecture always stays cathedral-like, broken, and machine-made.",
+    "Do not change outfits unless the story explicitly says so.",
+    "Do not change art style, lighting, or palette between scenes.",
+    "Every scene must keep the same dark vampire RPG anime manga hybrid look."
+  ]
+}

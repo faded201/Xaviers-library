@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.XaviersLibrary">
         <activity
@@ -22,6 +25,54 @@
             android:name=".MainActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".CosyVoiceSettingsActivity"
+            android:exported="true"
+            android:label="@string/cosyvoice_settings_title" />
+        <activity
+            android:name=".VisualBackendSettingsActivity"
+            android:exported="true"
+            android:label="@string/visual_backend_settings_title" />
+        <activity
+            android:name=".HuggingFaceStoryBrainSettingsActivity"
+            android:exported="true"
+            android:label="@string/hf_story_settings_title" />
+        <activity
+            android:name=".PromptPackSettingsActivity"
+            android:exported="true"
+            android:label="@string/prompt_pack_settings_title" />
+        <activity
+            android:name=".CosyVoiceCheckDataActivity"
+            android:exported="true"
+            android:label="@string/cosyvoice_settings_title">
+            <intent-filter>
+                <action android:name="android.speech.tts.engine.CHECK_TTS_DATA" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CosyVoiceInstallDataActivity"
+            android:exported="true"
+            android:label="@string/cosyvoice_settings_title">
+            <intent-filter>
+                <action android:name="android.speech.tts.engine.INSTALL_TTS_DATA" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <service
+            android:name=".CosyVoiceTtsService"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/cosyvoice_settings_title"
+            android:exported="true"
+            android:permission="android.permission.BIND_TEXT_SERVICE">
+            <intent-filter>
+                <action android:name="android.intent.action.TTS_SERVICE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="android.speech.tts"
+                android:resource="@xml/cosyvoice_tts_engine" />
+        </service>
     </application>
 
 </manifest>
