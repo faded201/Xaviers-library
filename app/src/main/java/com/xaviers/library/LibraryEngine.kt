@@ -287,135 +287,199 @@ class LibraryEngine {
 
     private fun buildUniqueTitles(count: Int): List<String> {
         val signatureTitles = listOf(
-            "My Hollowblood System",
-            "Birth of the Cinder Blade",
-            "The Gravebound Prince",
-            "A Lantern for the Hollow King",
-            "Chronicle of the Moon-Eater",
-            "The Necromancer Who Stole Dawn",
-            "Ashen Throne of the Last Saint",
-            "The Obsidian Fox Oath",
-            "Requiem of the Starved Cathedral",
-            "The Blood Archivist's Promise",
-            "The Warden of Broken Suns",
-            "The Silent Tyrant's Library",
-            "Oracle of the Rift Garden",
-            "The Seraph Beneath Black Water",
-            "Empire of the Lantern Dead",
-            "The Wolf of the Drowned Crown",
-            "Saint of the Ninth Labyrinth",
-            "The Grave Harbor Reclaimer",
-            "Moonscript for a Fallen Queen",
-            "The Cursed Heir of Ember Glass",
-            "The Voidbound Alchemist",
-            "The Prince Who Fed the Abyss",
-            "The Crimson Library Pact",
-            "A Cathedral Built for Monsters",
-            "The Last Gate of Hollow Mercy",
-            "Queen of the Ash Orchard",
-            "The Sword Saint of Quiet Ruin",
-            "The Dreaming Warden of Salt",
-            "The Reaper's Golden Scripture",
-            "Blood Oath for the Sleeping Dragon",
-            "The Ivory Monarch Reborn",
-            "The Fox Who Remembered War",
-            "Tower of the Starless Saint",
-            "The Graveflower Cultivator",
-            "The Hollow Seraph's Trial",
-            "The Archive of Unfinished Kings",
-            "The Eclipse Hunter's Reign",
-            "Throne of the Ninth Ember",
-            "The Moonlit Tyrant's Mercy",
-            "The Demon's Book of Glass Teeth",
-            "The Last Archivist of Cinder Vale",
-            "Prayer for the Obsidian Wolf",
-            "The Crownless Reaper",
-            "Stormgate of the Forgotten Heir",
-            "The Velvet Necromancer's Return",
-            "The Dragon Beneath the Library",
-            "The Hollow Prince Ascends",
-            "Book of the Bleeding Oracle",
-            "The Saint Who Taught the Night to Burn",
-            "The Riftborn Swordsman",
-            "Kingdom of the Lantern Serpent",
-            "The Drowned Queen's Codex",
-            "The Gravebound Sovereign",
-            "The Moon Wolf's Ascension",
-            "The Emperor of Broken Tomes",
-            "The Whispering Cathedral Trial",
-            "The Ashborn Harbinger",
-            "The Last Demon of Silver Rain",
-            "The Library at the End of Mourning",
-            "The Cinderblood Chronicle",
-            "The Serpent Crown Testament",
-            "The Iron Saint's Awakening",
-            "Reign of the Hollow Archive",
-            "The Blade That Drank Moonlight",
-            "The Wraith King's Gentle Promise",
-            "The Eclipse Daughter of Ruin",
-            "The Black Harbor Requiem",
-            "Bloodfire for the Sleeping Throne",
-            "The Cultivator of Forgotten Graves",
-            "The Night Library Sovereign",
-            "The Obsidian Saint's Return",
-            "The Gatekeeper of Ashen Stars",
-            "The Last Blessing of the Grave Fox",
-            "The Tyrant Who Collected Tomorrows",
-            "The Moonbound Monastery War",
-            "The Archivist of the Burning Garden",
-            "The Silent Library of Red Snow"
+            "Warriors Stand",
+            "Enemies Till Dawn",
+            "No Mercy for Kings",
+            "Blood Before Sunrise",
+            "The Last Crown",
+            "Until the Kingdom Burns",
+            "The Queen I Couldn't Save",
+            "Heir to a Dead Throne",
+            "A Sword for the Broken",
+            "When Wolves Return",
+            "The Boy Who Challenged Kings",
+            "We Were Never Saints",
+            "The Night the Empire Fell",
+            "I Buried the Hero",
+            "The Enemy Wore My Face",
+            "A Crown of Quiet Fire",
+            "The Last Oath Between Us",
+            "Mercy for the Damned",
+            "The Blade and the Betrayal",
+            "Kingdom of Second Chances",
+            "The One Who Survived the War",
+            "Brothers of the Black Dawn",
+            "Before the Throne Breaks",
+            "A Kingdom Without Mercy",
+            "She Chose the Enemy",
+            "The King Who Feared the Dark",
+            "Blood of the Last Heir",
+            "I Won't Die for This Crown",
+            "The Day the Saints Fell",
+            "Wolves at the Palace Gate",
+            "A Promise Made in Ash",
+            "The Last Boy of Winter",
+            "Enemy of My Last Dawn",
+            "The Crown They Couldn't Kill",
+            "When the Strongest Falls",
+            "The Girl Who Outlived the Kingdom",
+            "No Grave for Heroes",
+            "The First Betrayal",
+            "Our Last Night as Kings",
+            "Fire Under the Crown",
+            "The Enemy I Could Not Hate",
+            "A Throne Built on Names",
+            "Until Only Shadows Remain",
+            "The Last War Between Brothers",
+            "The Queen of a Broken House",
+            "I Refused the Ending",
+            "The Sword That Chose Revenge",
+            "Winter Oath",
+            "A Kingdom for the Faithless",
+            "If We Survive the Dawn",
+            "The Last Mercy of Kings",
+            "Ashes Under Gold",
+            "The Enemy at My Table",
+            "The Boy Who Carried the Crown",
+            "Crown of the Unforgiven",
+            "The Night We Became Monsters",
+            "No Prince for This Kingdom",
+            "The War After Midnight",
+            "The Last Promise of Summer",
+            "The Wolf Who Wouldn't Kneel",
+            "I Inherited Ruin",
+            "A Fire No King Could Name",
+            "The Saint Who Broke the War",
+            "Daughters of the Fallen Crown",
+            "The Enemy Before Morning",
+            "When the Crown Went Dark",
+            "My Last Life as a Swordsman",
+            "The King Beneath the Ashes",
+            "Nothing Left but the Throne",
+            "The One Who Returned at Dawn",
+            "We Buried the Sun",
+            "The Last Hunt of Winter",
+            "A Throne for the Enemy",
+            "The Crown at World's End",
+            "A Blade for the Lost",
+            "The House That Refused to Fall",
+            "The Last Loyal Heart",
+            "The Kingdom We Couldn't Save",
+            "Bloodline of the Betrayed",
+            "If the Wolves Win",
+            "The Boy From the Burned City",
+            "A Crown for the Enemy",
+            "The Last Friend I Kept",
+            "The Strongest One Left Behind",
+            "The Oath They Made Me Break",
+            "Fire on the Seventh Night",
+            "The Enemy's Last Prayer",
+            "The Prince Who Survived Nothing",
+            "War for the Final Dawn",
+            "No Light for the Ruthless",
+            "The Queen Who Never Forgave",
+            "I Chose the Wrong Kingdom",
+            "A Grave for Every Oath",
+            "The Last Soldier of Spring",
+            "Where the Crown Still Bleeds",
+            "The Heir Nobody Wanted",
+            "The Kingdom Beyond Revenge",
+            "Sword of the Last Morning",
+            "The Enemy Who Saved Me",
+            "Before the Heroes Wake",
+            "The House of Quiet Knives",
+            "Dawn Belongs to the Damned",
+            "The Last Name in the Fire",
+            "I Took the Enemy's Hand",
+            "The War We Couldn't Escape",
+            "A Crown Worth Killing For",
+            "The Night Before the Throne",
+            "Return of the Lost Blade",
+            "The Ranker Who Wouldn't Kneel",
+            "My Last System",
+            "The Strongest After Betrayal",
+            "I Became the Enemy's Sword",
+            "Reborn for the Final War",
+            "My Second Life as the Villain's Heir",
+            "The Hunter Who Came Back Empty",
+            "The Blade That Refused to Break",
+            "The Last Enemy Standing",
+            "Only the Broken Rise",
+            "The War No One Survived",
+            "The Crown After the Fall",
+            "Enemies Until the End",
+            "The Swordsman the Kingdom Feared",
+            "The King I Had to Betray",
+            "The World After Our Last Victory",
+            "One More Dawn to Win"
         )
-        val personalAspects = listOf(
-            "Vampire", "Dragonic", "Shadow", "Demonic", "Graveborn", "Voidwalker",
-            "Runeblade", "Moonbound", "Bloodforged", "Ashen", "Nightborn", "Stormbound",
-            "Oracle", "Seraph", "Ironblood", "Cinderborn", "Eclipse", "Starfallen",
-            "Ghostfire", "Hollowborn", "Thornbound", "Frostgrave"
+        val simpleSubjects = listOf(
+            "Warriors", "Enemies", "Kings", "Queens", "Wolves", "Hunters",
+            "Brothers", "Sisters", "Shadows", "Reapers", "Outcasts", "Rivals",
+            "Ghosts", "Soldiers", "Saints", "Giants"
         )
-        val personalTracks = listOf(
-            "System", "Legacy", "Codex", "Ascension", "Dominion", "Archive",
-            "Trial", "Awakening", "Scripture", "Reckoning", "Cycle", "Pact"
+        val simpleHooks = listOf(
+            "Stand", "Return", "Still Rise", "Hold the Gate",
+            "Wait for Dawn", "Choose War", "Refuse to Kneel", "Come Back Stronger"
         )
-        val birthDescriptors = listOf(
-            "Demonic", "Cinder", "Voidforged", "Moonlit", "Bloodbound", "Obsidian",
-            "Fallen", "Starved", "Runeborn", "Graveborn", "Hollow", "Nightbound",
-            "Ashen", "Ironblood", "Stormscarred", "Ghostfire"
+        val noValues = listOf(
+            "Mercy", "Light", "Grace", "Peace", "Rest", "Forgiveness",
+            "Pity", "Shelter"
         )
-        val birthEntities = listOf(
-            "Sword", "Tyrant", "Prince", "Saint", "Necromancer", "Dragon",
-            "Reaper", "Monarch", "Warden", "Seraph", "Hunter", "Oracle",
-            "Fox", "Wolf", "Cultivator", "King"
+        val noTargets = listOf(
+            "Kings", "Traitors", "Saints", "the Ruthless", "the Faithless",
+            "the Damned", "the Broken", "Monsters", "the Exiled"
         )
-        val realmDescriptors = listOf(
-            "Ashen", "Moonlit", "Hollow", "Obsidian", "Velvet", "Gravebound",
-            "Lantern", "Crimson", "Cinder", "Silent", "Starless", "Ivory",
-            "Riftborn", "Eclipse", "Bloodbound", "Stormglass", "Golden",
-            "Nightbound", "Wraith", "Runebound"
+        val whenSubjects = listOf(
+            "Empires", "Crowns", "Kingdoms", "Oaths", "Thrones", "Saints",
+            "Swords", "Brothers", "Queens", "Wolves", "Cities", "Names"
+        )
+        val whenVerbs = listOf(
+            "Burn", "Break", "Bleed", "Fall", "Return",
+            "Rise", "Kneel", "Wake", "Shatter", "Turn"
+        )
+        val beforeNouns = listOf(
+            "Blood", "Fire", "War", "Ash", "Silence", "Mercy",
+            "Steel", "Ruin", "Vengeance", "Storm", "Night", "Winter"
+        )
+        val beforeTimes = listOf(
+            "Sunrise", "Dawn", "Morning", "Midnight",
+            "the Storm", "the End", "Winter", "the Fall"
+        )
+        val heirTargets = listOf(
+            "a Dead Throne", "the Broken Kingdom", "the Last Empire", "the Burned House",
+            "the Silent Crown", "the Black Dawn", "the Fallen Gate", "the Red War"
+        )
+        val offerObjects = listOf(
+            "Sword", "Crown", "Home", "Kingdom", "Blade", "Last Chance",
+            "Name", "Oath", "War", "Fire", "Promise", "Throne"
+        )
+        val offerTargets = listOf(
+            "Broken", "Faithless", "Fallen", "Lost",
+            "Exiled", "Damned", "Forgotten", "Hungry"
         )
         val roles = listOf(
-            "Archivist", "Prince", "Saint", "Warden", "Hunter", "Queen",
-            "King", "Alchemist", "Tyrant", "Seraph", "Reaper", "Cultivator",
-            "Monarch", "Fox", "Oracle", "Dragon", "Heir", "Wolf",
-            "Swordsman", "Harbinger"
+            "Boy", "Girl", "King", "Queen", "Prince", "Hunter",
+            "Swordsman", "Reaper", "Heir", "Soldier", "Widow", "Villain",
+            "Saint", "Wolf", "Daughter", "Son"
         )
-        val relics = listOf(
-            "Archive", "Cathedral", "Crown", "Vault", "Garden", "Throne",
-            "Labyrinth", "Harbor", "Gate", "Library", "Citadel", "Scripture",
-            "Sanctum", "Kingdom", "Engine", "Requary"
+        val roleActions = listOf(
+            "Challenged Kings", "Outlived the War", "Wouldn't Kneel", "Lost Everything",
+            "Came Back Stronger", "Buried the Crown", "Chose Revenge", "Survived the Fire",
+            "Refused the Throne", "Broke the Oath", "Hunted the Night", "Saved the Enemy"
         )
-        val storyTokens = listOf(
-            "Requiem", "Legacy", "Throne", "Curse", "Covenant", "Empire",
-            "Mercy", "Scripture", "Labyrinth", "Vow", "Harvest", "Chronicle",
-            "Ascension", "Silence", "Eclipse", "Prophecy"
+        val ofNouns = listOf(
+            "Kingdom", "Crown", "War", "Mercy", "Empire", "House",
+            "Blade", "Bloodline", "Promise", "Shadow", "Fire", "Dawn"
         )
-        val endings = listOf(
-            "The Last Oath", "Empire of Ash", "The Broken Crown", "The Ninth Gate",
-            "A Kingdom of Embers", "The Silent Reign", "The Final Mercy",
-            "The Starless War", "The Hollow Promise", "The Red Scripture",
-            "The Grave Bloom", "The Black Tide"
+        val ofQualifiers = listOf(
+            "Second Chances", "Broken Vows", "Quiet Knives", "Black Wolves",
+            "Burned Cities", "Last Chances", "Open Graves", "Midnight Fires",
+            "Fallen Kings", "Empty Thrones", "Lost Sons", "Bleeding Crowns"
         )
-        val verbs = listOf(
-            "Wakes", "Breaks", "Bleeds", "Ascends", "Hungers", "Returns",
-            "Burns", "Remembers", "Opens", "Kneels", "Howls", "Falls"
+        val returnTargets = listOf(
+            "Lost Blade", "Last Heir", "Broken King", "Fallen Queen", "Black Wolf",
+            "Dead Empire", "Final Hunter", "Burned Crown", "Quiet Prince", "Forgotten Sword"
         )
 
         val titles = mutableListOf<String>()
@@ -430,20 +494,29 @@ class LibraryEngine {
         var cursor = 0
         while (titles.size < count) {
             val candidate = when (cursor % 8) {
-                0 -> "My ${personalAspects[cursor % personalAspects.size]} ${personalTracks[(cursor / 2) % personalTracks.size]}"
-                1 -> "Birth of the ${birthDescriptors[cursor % birthDescriptors.size]} ${birthEntities[(cursor / 3) % birthEntities.size]}"
-                2 -> "The ${realmDescriptors[cursor % realmDescriptors.size]} ${roles[(cursor / 5) % roles.size]}"
-                3 -> "${storyTokens[cursor % storyTokens.size]} of the ${realmDescriptors[(cursor / 4) % realmDescriptors.size]} ${relics[(cursor / 6) % relics.size]}"
-                4 -> "Chronicle of the ${realmDescriptors[cursor % realmDescriptors.size]} ${roles[(cursor / 7) % roles.size]}"
-                5 -> "${realmDescriptors[cursor % realmDescriptors.size]} ${roles[(cursor / 3) % roles.size]}: ${endings[(cursor / 5) % endings.size]}"
-                6 -> "When the ${storyTokens[cursor % storyTokens.size]} ${verbs[(cursor / 2) % verbs.size]}"
-                else -> "The ${roles[cursor % roles.size]}'s ${endings[(cursor / 4) % endings.size]}"
+                0 -> "${simpleSubjects[cursor % simpleSubjects.size]} ${simpleHooks[(cursor / 2) % simpleHooks.size]}"
+                1 -> "No ${noValues[cursor % noValues.size]} for ${noTargets[(cursor / 3) % noTargets.size]}"
+                2 -> "When ${whenSubjects[cursor % whenSubjects.size]} ${whenVerbs[(cursor / 4) % whenVerbs.size]}"
+                3 -> "${beforeNouns[cursor % beforeNouns.size]} Before ${beforeTimes[(cursor / 5) % beforeTimes.size]}"
+                4 -> "Heir to ${heirTargets[cursor % heirTargets.size]}"
+                5 -> "A ${offerObjects[cursor % offerObjects.size]} for the ${offerTargets[(cursor / 4) % offerTargets.size]}"
+                6 -> "The ${roles[cursor % roles.size]} Who ${roleActions[(cursor / 5) % roleActions.size]}"
+                else -> "${ofNouns[cursor % ofNouns.size]} of ${ofQualifiers[(cursor / 6) % ofQualifiers.size]}"
             }
 
             if (usedTitles.add(candidate)) {
                 titles += candidate
             }
             cursor += 1
+        }
+
+        var returnCursor = 0
+        while (titles.size < count) {
+            val candidate = "Return of the ${returnTargets[returnCursor % returnTargets.size]}"
+            if (usedTitles.add(candidate)) {
+                titles += candidate
+            }
+            returnCursor += 1
         }
 
         return titles.take(count)
