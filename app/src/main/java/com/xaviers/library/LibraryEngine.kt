@@ -286,237 +286,276 @@ class LibraryEngine {
     }
 
     private fun buildUniqueTitles(count: Int): List<String> {
-        val signatureTitles = listOf(
-            "Warriors Stand",
-            "Enemies Till Dawn",
-            "No Mercy for Kings",
-            "Blood Before Sunrise",
-            "The Last Crown",
-            "Until the Kingdom Burns",
-            "The Queen I Couldn't Save",
-            "Heir to a Dead Throne",
-            "A Sword for the Broken",
-            "When Wolves Return",
-            "The Boy Who Challenged Kings",
-            "We Were Never Saints",
-            "The Night the Empire Fell",
-            "I Buried the Hero",
-            "The Enemy Wore My Face",
-            "A Crown of Quiet Fire",
-            "The Last Oath Between Us",
-            "Mercy for the Damned",
-            "The Blade and the Betrayal",
-            "Kingdom of Second Chances",
-            "The One Who Survived the War",
-            "Brothers of the Black Dawn",
-            "Before the Throne Breaks",
-            "A Kingdom Without Mercy",
-            "She Chose the Enemy",
-            "The King Who Feared the Dark",
-            "Blood of the Last Heir",
-            "I Won't Die for This Crown",
-            "The Day the Saints Fell",
-            "Wolves at the Palace Gate",
-            "A Promise Made in Ash",
-            "The Last Boy of Winter",
-            "Enemy of My Last Dawn",
-            "The Crown They Couldn't Kill",
-            "When the Strongest Falls",
-            "The Girl Who Outlived the Kingdom",
-            "No Grave for Heroes",
-            "The First Betrayal",
-            "Our Last Night as Kings",
-            "Fire Under the Crown",
-            "The Enemy I Could Not Hate",
-            "A Throne Built on Names",
-            "Until Only Shadows Remain",
-            "The Last War Between Brothers",
-            "The Queen of a Broken House",
-            "I Refused the Ending",
-            "The Sword That Chose Revenge",
-            "Winter Oath",
-            "A Kingdom for the Faithless",
-            "If We Survive the Dawn",
-            "The Last Mercy of Kings",
-            "Ashes Under Gold",
-            "The Enemy at My Table",
-            "The Boy Who Carried the Crown",
-            "Crown of the Unforgiven",
-            "The Night We Became Monsters",
-            "No Prince for This Kingdom",
-            "The War After Midnight",
-            "The Last Promise of Summer",
-            "The Wolf Who Wouldn't Kneel",
-            "I Inherited Ruin",
-            "A Fire No King Could Name",
-            "The Saint Who Broke the War",
-            "Daughters of the Fallen Crown",
-            "The Enemy Before Morning",
-            "When the Crown Went Dark",
-            "My Last Life as a Swordsman",
-            "The King Beneath the Ashes",
-            "Nothing Left but the Throne",
-            "The One Who Returned at Dawn",
-            "We Buried the Sun",
-            "The Last Hunt of Winter",
-            "A Throne for the Enemy",
-            "The Crown at World's End",
-            "A Blade for the Lost",
-            "The House That Refused to Fall",
-            "The Last Loyal Heart",
-            "The Kingdom We Couldn't Save",
-            "Bloodline of the Betrayed",
-            "If the Wolves Win",
-            "The Boy From the Burned City",
-            "A Crown for the Enemy",
-            "The Last Friend I Kept",
-            "The Strongest One Left Behind",
-            "The Oath They Made Me Break",
-            "Fire on the Seventh Night",
-            "The Enemy's Last Prayer",
-            "The Prince Who Survived Nothing",
-            "War for the Final Dawn",
-            "No Light for the Ruthless",
-            "The Queen Who Never Forgave",
-            "I Chose the Wrong Kingdom",
-            "A Grave for Every Oath",
-            "The Last Soldier of Spring",
-            "Where the Crown Still Bleeds",
-            "The Heir Nobody Wanted",
-            "The Kingdom Beyond Revenge",
-            "Sword of the Last Morning",
-            "The Enemy Who Saved Me",
-            "Before the Heroes Wake",
-            "The House of Quiet Knives",
-            "Dawn Belongs to the Damned",
-            "The Last Name in the Fire",
-            "I Took the Enemy's Hand",
-            "The War We Couldn't Escape",
-            "A Crown Worth Killing For",
-            "The Night Before the Throne",
-            "Return of the Lost Blade",
-            "The Ranker Who Wouldn't Kneel",
-            "My Last System",
-            "The Strongest After Betrayal",
-            "I Became the Enemy's Sword",
-            "Reborn for the Final War",
-            "My Second Life as the Villain's Heir",
-            "The Hunter Who Came Back Empty",
-            "The Blade That Refused to Break",
-            "The Last Enemy Standing",
-            "Only the Broken Rise",
-            "The War No One Survived",
-            "The Crown After the Fall",
-            "Enemies Until the End",
-            "The Swordsman the Kingdom Feared",
-            "The King I Had to Betray",
-            "The World After Our Last Victory",
-            "One More Dawn to Win"
+        val curatedBanks = listOf(
+            listOf(
+                "The Last Crown",
+                "The Queen of a Broken House",
+                "The King Beneath the Ashes",
+                "The Night We Became Monsters",
+                "Crown of the Unforgiven",
+                "The Enemy Before Morning",
+                "The House of Quiet Knives",
+                "The Blade and the Betrayal",
+                "The Crown They Couldn't Kill",
+                "Where the Crown Still Bleeds",
+                "The Last Oath Between Us",
+                "A Throne for the Enemy"
+            ),
+            listOf(
+                "My Last System",
+                "The Ranker Who Wouldn't Kneel",
+                "Leveling After the Kingdom Fell",
+                "Return of the Cursed Ranker",
+                "My Second Life as the Villain's Heir",
+                "The Strongest After Betrayal",
+                "Reborn for the Final War",
+                "The Tutorial No One Survived",
+                "System of the Fallen Heir",
+                "The Hunter Who Came Back Empty",
+                "The Strongest One Left Behind",
+                "After the Tower Burned"
+            ),
+            listOf(
+                "The Queen I Couldn't Save",
+                "If We Survive the Dawn",
+                "She Chose the Enemy",
+                "The Enemy Who Saved Me",
+                "I Took the Enemy's Hand",
+                "The Prince I Was Meant to Hate",
+                "The Last Friend I Kept",
+                "A Promise We Shouldn't Have Made",
+                "The One I Lost at Dawn",
+                "Hearts Beneath the Crown",
+                "If the Villain Stays",
+                "The Girl Who Outlived the Kingdom"
+            ),
+            listOf(
+                "Warriors Stand",
+                "No Mercy for Kings",
+                "Blood Before Sunrise",
+                "Until the Kingdom Burns",
+                "Brothers of the Black Dawn",
+                "The Last War Between Brothers",
+                "The Day the Saints Fell",
+                "War for the Final Dawn",
+                "A Crown Worth Killing For",
+                "The Kingdom We Couldn't Save",
+                "Dawn Belongs to the Damned",
+                "The Last Soldier of Spring"
+            ),
+            listOf(
+                "The Enemy Wore My Face",
+                "The Enemy at My Table",
+                "Seven Lies Before Dawn",
+                "I Buried the Hero",
+                "Before the Heroes Wake",
+                "No One Leaves the Palace",
+                "The Witness in Red",
+                "Don't Trust the Crown",
+                "The Secret Under Blackwater Hall",
+                "Somebody Killed the Saint",
+                "The Boy Who Remembered Too Much",
+                "The Night Before the Throne"
+            ),
+            listOf(
+                "Orbit of the Last City",
+                "The Girl Who Hacked Tomorrow",
+                "After Earth Went Silent",
+                "Ashfall Protocol",
+                "The Last Signal from Orion",
+                "Machine Hearts at Midnight",
+                "The City That Remembered Us",
+                "Save Me Before the Suns Die",
+                "Ghost Signal",
+                "Zero Hour Colony",
+                "The Edge of Tomorrow's War",
+                "We Were Built for the End"
+            ),
+            listOf(
+                "When the Dead Knock",
+                "Don't Open the Ninth Door",
+                "The Town That Eats the Night",
+                "If You Hear Her Singing",
+                "The Graveyard Behind My Name",
+                "We Buried the Wrong Body",
+                "The House That Hates Us",
+                "The Devil Came Home Smiling",
+                "The Church Beneath the Lake",
+                "Someone Is Breathing in the Walls",
+                "The Last Prayer in Blackwood",
+                "No Sleep in Hollow Vale"
+            ),
+            listOf(
+                "The Strongest Freshman",
+                "I Failed the Hero Exam",
+                "Academy of Broken Kings",
+                "My Rival Is the Chosen One",
+                "The Last Student of Nightfall Academy",
+                "The Girl Who Ranked First in Death Magic",
+                "Semester of the Damned",
+                "The Class Nobody Survived",
+                "The Transfer Student Killed the Hero",
+                "I Was Expelled for Saving the Villain",
+                "The Worst Genius in the Academy",
+                "The Professor of Forbidden Skills"
+            ),
+            listOf(
+                "If the Wolves Win",
+                "The Day the World Split Open",
+                "Last Train After the End",
+                "We Buried the Sun",
+                "The Last Shelter",
+                "Survive Until Morning",
+                "Cities After Fire",
+                "The Last Road to Mercy",
+                "Ashes After Eden",
+                "The Last Broadcast",
+                "Hunger in the Snow",
+                "Earth After Day Zero"
+            ),
+            listOf(
+                "Night Shift for Monsters",
+                "My Rent Is Paid in Blood",
+                "The Last Witch in the City",
+                "The Demon on 8th Street",
+                "Borrowed Magic, Stolen Hearts",
+                "The Detective Who Talked to Spirits",
+                "I Met Death on the Night Bus",
+                "The Girl Who Sold Curses",
+                "The Vampire Next Door Is My Enemy",
+                "The Secret Market Under the Moon",
+                "Tea Shop at the Edge of Magic",
+                "The Library at the World's Edge"
+            ),
+            listOf(
+                "The Heir Nobody Wanted",
+                "A Crown for the Enemy",
+                "The Queen Who Never Forgave",
+                "The King I Had to Betray",
+                "Bloodline of the Betrayed",
+                "Every Throne Has a Price",
+                "The Court of Silent Blades",
+                "The Widow Who Ruled the War",
+                "The Last Vote Before Blood",
+                "The House That Refused to Fall",
+                "The Prince Who Survived Nothing",
+                "The Crown After the Fall"
+            )
         )
-        val simpleSubjects = listOf(
-            "Warriors", "Enemies", "Kings", "Queens", "Wolves", "Hunters",
-            "Brothers", "Sisters", "Shadows", "Reapers", "Outcasts", "Rivals",
-            "Ghosts", "Soldiers", "Saints", "Giants"
+        val systemSubjects = listOf(
+            "Vampire", "Dragon", "Shadow", "Necromancer", "Villain", "Hunter",
+            "Sword Saint", "Healer", "Demon Lord", "Last Hero", "Fallen Heir", "Ghost Blade"
         )
-        val simpleHooks = listOf(
-            "Stand", "Return", "Still Rise", "Hold the Gate",
-            "Wait for Dawn", "Choose War", "Refuse to Kneel", "Come Back Stronger"
+        val systemHooks = listOf(
+            "System", "Ranker", "Awakening", "Legacy", "Reckoning", "Return"
         )
-        val noValues = listOf(
-            "Mercy", "Light", "Grace", "Peace", "Rest", "Forgiveness",
-            "Pity", "Shelter"
+        val romanceRoles = listOf(
+            "Enemy", "Prince", "Villain", "Queen", "King", "Monster",
+            "Hunter", "Hero", "Heir", "Rival"
         )
-        val noTargets = listOf(
-            "Kings", "Traitors", "Saints", "the Ruthless", "the Faithless",
-            "the Damned", "the Broken", "Monsters", "the Exiled"
+        val romanceActions = listOf(
+            "Couldn't Save", "Was Meant to Hate", "Shouldn't Have Loved", "Lost at Dawn",
+            "Promised to Betray", "Couldn't Leave", "Came Back For", "Refused to Forget"
         )
-        val whenSubjects = listOf(
-            "Empires", "Crowns", "Kingdoms", "Oaths", "Thrones", "Saints",
-            "Swords", "Brothers", "Queens", "Wolves", "Cities", "Names"
+        val warSubjects = listOf(
+            "Warriors", "Wolves", "Kings", "Queens", "Outcasts", "Soldiers",
+            "Brothers", "Sisters", "Hunters", "Saints"
         )
-        val whenVerbs = listOf(
-            "Burn", "Break", "Bleed", "Fall", "Return",
-            "Rise", "Kneel", "Wake", "Shatter", "Turn"
+        val warHooks = listOf(
+            "Stand", "Hold the Gate", "Choose War", "Rise at Dawn",
+            "Refuse to Kneel", "Return in Fire", "Break the Crown", "Take the Throne"
         )
-        val beforeNouns = listOf(
-            "Blood", "Fire", "War", "Ash", "Silence", "Mercy",
-            "Steel", "Ruin", "Vengeance", "Storm", "Night", "Winter"
+        val thrillerActions = listOf("Trust", "Open", "Follow", "Answer", "Keep", "Bury")
+        val thrillerObjects = listOf(
+            "Crown", "Letter", "Ninth Door", "Red Room", "Last Signal", "Black Book",
+            "Name", "Witness", "Knife", "Bell"
         )
-        val beforeTimes = listOf(
-            "Sunrise", "Dawn", "Morning", "Midnight",
-            "the Storm", "the End", "Winter", "the Fall"
+        val sciFiPlaces = listOf(
+            "Orion", "Sector Nine", "Titan Station", "the Last City",
+            "the Black Moon", "the Ninth Colony", "the Dead Sun", "Tomorrow"
         )
-        val heirTargets = listOf(
-            "a Dead Throne", "the Broken Kingdom", "the Last Empire", "the Burned House",
-            "the Silent Crown", "the Black Dawn", "the Fallen Gate", "the Red War"
+        val sciFiEvents = listOf("Went Silent", "Burned", "Broke", "Woke", "Vanished", "Returned")
+        val sciFiSignals = listOf("Ghost Signal", "Ashfall Protocol", "Zero Hour Colony", "Black Moon Directive")
+        val horrorPlaces = listOf(
+            "House", "Church", "Town", "Lake", "Hall", "Forest",
+            "Chapel", "Road", "Graveyard", "Basement"
         )
-        val offerObjects = listOf(
-            "Sword", "Crown", "Home", "Kingdom", "Blade", "Last Chance",
-            "Name", "Oath", "War", "Fire", "Promise", "Throne"
+        val horrorHooks = listOf(
+            "That Hates Us", "That Shouldn't Exist", "That Eats the Night", "Beneath the Lake",
+            "After Midnight", "Where No One Sleeps", "Where the Dead Wait", "With No Exit"
         )
-        val offerTargets = listOf(
-            "Broken", "Faithless", "Fallen", "Lost",
-            "Exiled", "Damned", "Forgotten", "Hungry"
+        val academyRanks = listOf(
+            "Strongest", "Worst", "Last", "First", "Top", "Transfer", "Final", "Hidden"
         )
-        val roles = listOf(
-            "Boy", "Girl", "King", "Queen", "Prince", "Hunter",
-            "Swordsman", "Reaper", "Heir", "Soldier", "Widow", "Villain",
-            "Saint", "Wolf", "Daughter", "Son"
+        val academyRoles = listOf(
+            "Freshman", "Student", "Professor", "Ranker", "Prodigy", "Classmate", "Healer", "Mage"
         )
-        val roleActions = listOf(
-            "Challenged Kings", "Outlived the War", "Wouldn't Kneel", "Lost Everything",
-            "Came Back Stronger", "Buried the Crown", "Chose Revenge", "Survived the Fire",
-            "Refused the Throne", "Broke the Oath", "Hunted the Night", "Saved the Enemy"
+        val academyNames = listOf(
+            "Nightfall Academy", "Blackthorne Academy", "Saint Vale Academy", "Ashborn Academy",
+            "Red Moon Academy", "Last Crown Academy", "Frostgate Academy"
         )
-        val ofNouns = listOf(
-            "Kingdom", "Crown", "War", "Mercy", "Empire", "House",
-            "Blade", "Bloodline", "Promise", "Shadow", "Fire", "Dawn"
+        val apocalypseRoutes = listOf(
+            "Train", "Road", "Signal", "Shelter", "Broadcast", "Map"
         )
-        val ofQualifiers = listOf(
-            "Second Chances", "Broken Vows", "Quiet Knives", "Black Wolves",
-            "Burned Cities", "Last Chances", "Open Graves", "Midnight Fires",
-            "Fallen Kings", "Empty Thrones", "Lost Sons", "Bleeding Crowns"
+        val apocalypseTargets = listOf(
+            "the End", "Tomorrow", "Mercy", "the Last Coast", "the Safe Zone", "Dawn", "the Final City"
         )
-        val returnTargets = listOf(
-            "Lost Blade", "Last Heir", "Broken King", "Fallen Queen", "Black Wolf",
-            "Dead Empire", "Final Hunter", "Burned Crown", "Quiet Prince", "Forgotten Sword"
+        val apocalypseStates = listOf(
+            "Day Zero", "the Fire", "the Fall", "the Black Winter", "the Sirens", "the Last Storm"
+        )
+        val urbanCities = listOf("Blackwater", "Ash City", "Red Harbor", "Night Vale", "Hollow Point", "Mooncross")
+        val urbanThreats = listOf("the Devil", "the Underworld", "City Curses", "Ghosts", "the Vampire King", "Monsters")
+        val urbanJobs = listOf("Night Shift for", "Five Days to Stop", "The Last Witch in", "My Deal With", "The Detective Who Hunted")
+        val politicalRoles = listOf("Heir", "Queen", "Prince", "Widow", "House", "Court", "Empire", "Kingdom")
+        val politicalHooks = listOf(
+            "Quiet Knives", "Broken Vows", "Bleeding Crowns", "Black Banners",
+            "Dead Princes", "Empty Thrones", "Ashen Oaths", "Last Chances"
         )
 
         val titles = mutableListOf<String>()
         val usedTitles = linkedSetOf<String>()
 
-        signatureTitles.forEach { title ->
-            if (usedTitles.add(title)) {
-                titles += title
+        curatedBanks.forEach { bank ->
+            bank.forEach { title ->
+                if (usedTitles.add(title)) {
+                    titles += title
+                }
             }
         }
 
         var cursor = 0
         while (titles.size < count) {
-            val candidate = when (cursor % 8) {
-                0 -> "${simpleSubjects[cursor % simpleSubjects.size]} ${simpleHooks[(cursor / 2) % simpleHooks.size]}"
-                1 -> "No ${noValues[cursor % noValues.size]} for ${noTargets[(cursor / 3) % noTargets.size]}"
-                2 -> "When ${whenSubjects[cursor % whenSubjects.size]} ${whenVerbs[(cursor / 4) % whenVerbs.size]}"
-                3 -> "${beforeNouns[cursor % beforeNouns.size]} Before ${beforeTimes[(cursor / 5) % beforeTimes.size]}"
-                4 -> "Heir to ${heirTargets[cursor % heirTargets.size]}"
-                5 -> "A ${offerObjects[cursor % offerObjects.size]} for the ${offerTargets[(cursor / 4) % offerTargets.size]}"
-                6 -> "The ${roles[cursor % roles.size]} Who ${roleActions[(cursor / 5) % roleActions.size]}"
-                else -> "${ofNouns[cursor % ofNouns.size]} of ${ofQualifiers[(cursor / 6) % ofQualifiers.size]}"
+            val candidate = when (cursor % 10) {
+                0 -> "My ${systemSubjects[cursor % systemSubjects.size]} ${systemHooks[(cursor / 2) % systemHooks.size]}"
+                1 -> "The ${romanceRoles[cursor % romanceRoles.size]} I ${romanceActions[(cursor / 3) % romanceActions.size]}"
+                2 -> "${warSubjects[cursor % warSubjects.size]} ${warHooks[(cursor / 4) % warHooks.size]}"
+                3 -> "Don't ${thrillerActions[cursor % thrillerActions.size]} the ${thrillerObjects[(cursor / 5) % thrillerObjects.size]}"
+                4 -> when ((cursor / 2) % 3) {
+                    0 -> "After ${sciFiPlaces[cursor % sciFiPlaces.size]} ${sciFiEvents[(cursor / 4) % sciFiEvents.size]}"
+                    1 -> "${sciFiSignals[(cursor / 3) % sciFiSignals.size]} from ${sciFiPlaces[(cursor / 5) % sciFiPlaces.size]}"
+                    else -> "${sciFiPlaces[cursor % sciFiPlaces.size]} at the End of Time"
+                }
+                5 -> "The ${horrorPlaces[cursor % horrorPlaces.size]} ${horrorHooks[(cursor / 4) % horrorHooks.size]}"
+                6 -> "The ${academyRanks[cursor % academyRanks.size]} ${academyRoles[(cursor / 5) % academyRoles.size]} of ${academyNames[(cursor / 7) % academyNames.size]}"
+                7 -> when ((cursor / 3) % 3) {
+                    0 -> "The Last ${apocalypseRoutes[cursor % apocalypseRoutes.size]} to ${apocalypseTargets[(cursor / 6) % apocalypseTargets.size]}"
+                    1 -> "Survive Until ${apocalypseTargets[(cursor / 5) % apocalypseTargets.size]}"
+                    else -> "After ${apocalypseStates[cursor % apocalypseStates.size]}"
+                }
+                8 -> when ((cursor / 2) % 5) {
+                    0 -> "${urbanJobs[0]} ${urbanThreats[cursor % urbanThreats.size]}"
+                    1 -> "${urbanJobs[1]} ${urbanThreats[(cursor / 4) % urbanThreats.size]}"
+                    2 -> "${urbanJobs[2]} ${urbanCities[(cursor / 3) % urbanCities.size]}"
+                    3 -> "${urbanJobs[3]} ${urbanThreats[(cursor / 5) % urbanThreats.size]}"
+                    else -> "${urbanJobs[4]} ${urbanThreats[(cursor / 6) % urbanThreats.size]}"
+                }
+                else -> "The ${politicalRoles[cursor % politicalRoles.size]} of ${politicalHooks[(cursor / 5) % politicalHooks.size]}"
             }
 
             if (usedTitles.add(candidate)) {
                 titles += candidate
             }
             cursor += 1
-        }
-
-        var returnCursor = 0
-        while (titles.size < count) {
-            val candidate = "Return of the ${returnTargets[returnCursor % returnTargets.size]}"
-            if (usedTitles.add(candidate)) {
-                titles += candidate
-            }
-            returnCursor += 1
         }
 
         return titles.take(count)
