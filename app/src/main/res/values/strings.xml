@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Xavier\'s Library</string>
+    <string name="library_title">Xavier\'s Library</string>
+    <string name="library_kicker">Living Tome Ritual</string>
+    <string name="library_subtitle">Tap the tome or begin the rite to move through the four sacred states.</string>
+    <string name="advance_state">Awaken The Tome</string>
+    <string name="tome_image_content_description">Current tome state artwork</string>
+    <string name="state_overline">Current Manifestation</string>
+    <string name="ritual_hint">Each awakening should feel ceremonial: warm, dangerous, and beautiful. We can keep the magic high without overwhelming weaker phones.</string>
+    <string name="image_caption_default">Sacred state portrait</string>
+    <string name="share_subject">Xavier\'s Library Omen</string>
+    <string name="share_chooser">Share the omen</string>
+
+    <string name="state_dormant_title">Dormant Tome</string>
+    <string name="state_dormant_subtitle">An ancient leather relic, sealed and breathing softly in the dark. Its story has not yet chosen a voice.</string>
+    <string name="state_dormant_caption">sealed relic // dust and oath</string>
+
+    <string name="state_stirring_title">Stirring Grimoire</string>
+    <string name="state_stirring_subtitle">Gold heat leaks through the binding. The tome is waking, answering touch with ritual flame and emberlight.</string>
+    <string name="state_stirring_caption">ember rite // first ignition</string>
+
+    <string name="state_awakened_title">Awakened Codex</string>
+    <string name="state_awakened_subtitle">The book has become sentient. Cyan runes and star-fire gather at the edges as the library listens back.</string>
+    <string name="state_awakened_caption">star-script // listening intelligence</string>
+
+    <string name="state_unleashed_title">Unleashed Manuscript</string>
+    <string name="state_unleashed_subtitle">The pages break open in a burst of light. Story, voice, and image spill free as the tome enters full manifestation.</string>
+    <string name="state_unleashed_caption">open flare // story rupture</string>
+</resources>

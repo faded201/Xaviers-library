@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.XaviersLibrary" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/tome_stirring</item>
+        <item name="colorSecondary">@color/tome_awakened</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+    </style>
+</resources>

@@ -1,0 +1,12 @@
+.gradle/
+.idea/
+.kotlin/
+.sixth/
+build/
+app/build/
+local.properties
+build-output.txt
+*.iml
+captures/
+dist/
+out/

@@ -1,0 +1,4 @@
+Dormant Tome -> app/src/main/res/drawable-nodpi/dormant_tome.jpg
+Stirring Grimoire -> app/src/main/res/drawable-nodpi/stirring_grimoire.jpg
+Awakened Codex -> app/src/main/res/drawable-nodpi/awakened_codex.jpg
+Unleashed Manuscript -> app/src/main/res/drawable-nodpi/unleashed_manuscript.jpg

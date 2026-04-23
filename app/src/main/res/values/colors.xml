@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_dormant">#110D0A</color>
+    <color name="bg_stirring">#2A1607</color>
+    <color name="bg_awakened">#071B22</color>
+    <color name="bg_unleashed">#241207</color>
+
+    <color name="tome_dormant">#C7A56A</color>
+    <color name="tome_stirring">#F2B544</color>
+    <color name="tome_awakened">#63D7E5</color>
+    <color name="tome_unleashed">#FF9A2F</color>
+
+    <color name="card_surface">#CC18130F</color>
+    <color name="card_stroke">#2FFFFFFF</color>
+    <color name="image_frame_surface">#1F0C09</color>
+    <color name="image_frame_stroke">#40FFFFFF</color>
+    <color name="text_secondary">#D5C8BC</color>
+    <color name="text_tertiary">#A6927F</color>
+    <color name="text_hint">#F2CF9A</color>
+</resources>
