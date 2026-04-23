@@ -135,6 +135,13 @@
             android:layout_marginTop="18dp"
             android:text="@string/prompt_pack_import_visual_dictionary_button" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/openVisualDictionaryDownloadButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/prompt_pack_open_visual_download_button" />
+
         <TextView
             android:id="@+id/referenceNote"
             android:layout_width="match_parent"

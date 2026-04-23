@@ -77,11 +77,12 @@
     <string name="prompt_pack_import_prompt_pack_button">Import prompt_pack.json</string>
     <string name="prompt_pack_open_download_button">Open public download link for prompt_pack.json</string>
     <string name="prompt_pack_import_visual_dictionary_button">Import visual_dictionary.json</string>
+    <string name="prompt_pack_open_visual_download_button">Open public download link for visual_dictionary.json</string>
     <string name="prompt_pack_not_imported">Not imported yet</string>
     <string name="prompt_pack_import_success">Imported %1$s. %2$s</string>
     <string name="prompt_pack_import_failed">Import failed: %1$s</string>
     <string name="prompt_pack_open_failed">Could not open the downloadable copy: %1$s</string>
-    <string name="prompt_pack_reference_note">`bookpilot.Modelfile` stays in Download/XaviersLibrary as a reference file only. The Android runtime does not consume it. The public prompt_pack.json link points at the repo copy for anyone installing the app.</string>
+    <string name="prompt_pack_reference_note">`bookpilot.Modelfile` stays in Download/XaviersLibrary as a reference file only. The Android runtime does not consume it. The public prompt_pack.json and visual_dictionary.json links point at the repo copies for anyone installing the app.</string>
     <string name="ritual_hint">Each awakening should feel warm, human, and easy to live with. We can keep the magic high without boxing anyone out.</string>
     <string name="image_caption_default">Sacred state portrait</string>
     <string name="share_subject">Xavier\'s Library Omen</string>

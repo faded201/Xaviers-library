@@ -43,6 +43,9 @@ class PromptPackSettingsActivity : AppCompatActivity() {
         binding.importVisualDictionaryButton.setOnClickListener {
             visualDictionaryPicker.launch(JSON_MIME_TYPES)
         }
+        binding.openVisualDictionaryDownloadButton.setOnClickListener {
+            openPublicDownload(PUBLIC_VISUAL_DICTIONARY_URL)
+        }
 
         refreshStatus(repository.reload())
     }
@@ -122,5 +125,7 @@ class PromptPackSettingsActivity : AppCompatActivity() {
         private val JSON_MIME_TYPES = arrayOf("application/json", "text/plain", "*/*")
         private const val PUBLIC_PROMPT_PACK_URL =
             "https://raw.githubusercontent.com/faded201/Xaviers-library/main/prompt_pack.json"
+        private const val PUBLIC_VISUAL_DICTIONARY_URL =
+            "https://raw.githubusercontent.com/faded201/Xaviers-library/main/visual_dictionary.json"
     }
 }
