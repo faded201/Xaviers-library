@@ -316,6 +316,20 @@ class LibraryEngine {
                 "After the Tower Burned"
             ),
             listOf(
+                "Dungeon Heart",
+                "Level 99 After Betrayal",
+                "The Last Raid Party",
+                "My Guild Wants Me Dead",
+                "The Final Boss Was My Friend",
+                "Solo Tank",
+                "S-Rank After the Fall",
+                "The Healer Who Took Revenge",
+                "Respawn After Midnight",
+                "The Dungeon Master of Black Gate",
+                "The Player Who Refused to Log Out",
+                "Stats of the Last Survivor"
+            ),
+            listOf(
                 "The Queen I Couldn't Save",
                 "If We Survive the Dawn",
                 "She Chose the Enemy",
@@ -444,10 +458,12 @@ class LibraryEngine {
         )
         val systemSubjects = listOf(
             "Vampire", "Dragon", "Shadow", "Necromancer", "Villain", "Hunter",
-            "Sword Saint", "Healer", "Demon Lord", "Last Hero", "Fallen Heir", "Ghost Blade"
+            "Sword Saint", "Healer", "Demon Lord", "Last Hero", "Fallen Heir", "Ghost Blade",
+            "Dungeon", "Raid", "Guild", "Player", "Tank", "S-Rank Hunter"
         )
         val systemHooks = listOf(
-            "System", "Ranker", "Awakening", "Legacy", "Reckoning", "Return"
+            "System", "Ranker", "Awakening", "Legacy", "Reckoning", "Return",
+            "Build", "Class", "Quest", "Respawn"
         )
         val romanceRoles = listOf(
             "Enemy", "Prince", "Villain", "Queen", "King", "Monster",
