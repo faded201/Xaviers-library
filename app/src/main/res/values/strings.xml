@@ -4,6 +4,15 @@
     <string name="library_title">Xavier\'s Library</string>
     <string name="library_kicker">Living Tome Ritual</string>
     <string name="library_subtitle">Tap the tome or begin the rite to move through the four sacred states.</string>
+    <string name="surface_ritual_kicker">Living Tome Ritual</string>
+    <string name="surface_ritual_title">Xavier\'s Library</string>
+    <string name="surface_ritual_subtitle">Awaken the active tome, read the omens, and move through the sacred states.</string>
+    <string name="surface_library_kicker">Xavier\'s Library</string>
+    <string name="surface_library_title">The Living Shelf</string>
+    <string name="surface_library_subtitle">Choose a tome, study its planted fate, then step back into the rite.</string>
+    <string name="surface_vault_kicker">Xavier\'s Library</string>
+    <string name="surface_vault_title">Collector Vault</string>
+    <string name="surface_vault_subtitle">Review holographic cards, Aether Ink, and fusion pressure without losing the atmosphere.</string>
     <string name="advance_state">Awaken The Tome</string>
     <string name="nav_ritual">Ritual</string>
     <string name="nav_library">Library</string>

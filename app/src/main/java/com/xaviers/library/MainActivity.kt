@@ -6,6 +6,7 @@ import android.animation.ValueAnimator
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var currentSnapshot: RitualSnapshot
     private var activeSurface = Surface.RITUAL
     private var selectedBookId = 0
+    private val compactChrome by lazy { resources.configuration.screenHeightDp < 760 }
 
     private val indicatorViews by lazy {
         listOf(
@@ -137,7 +139,7 @@ class MainActivity : AppCompatActivity() {
         selectedBookId = libraryEngine.currentBook().id
 
         binding.stateBadge.text = getString(state.titleRes)
-        binding.librarySubtitle.text = snapshot.librarySubtitle
+        binding.libraryStatus.text = snapshot.librarySubtitle
         binding.stateOverline.text = snapshot.stateOverline
         binding.stateTitle.text = getString(state.titleRes)
         binding.stateSubtitle.text = getString(state.subtitleRes)
@@ -160,6 +162,7 @@ class MainActivity : AppCompatActivity() {
         binding.vaultArchivistCard.strokeColor = accentColor
         updateIndicators(state, accentColor)
         applyNavigationButtonStyles(accentColor)
+        applySurfaceChrome()
         refreshLibraryPanel(accentColor)
         refreshVaultPanel(accentColor)
         updatePrimaryButtonLabel()
@@ -276,6 +279,7 @@ class MainActivity : AppCompatActivity() {
         activeSurface = surface
         val accentColor = ContextCompat.getColor(this, currentState.accentRes)
         applyNavigationButtonStyles(accentColor)
+        applySurfaceChrome()
         updatePrimaryButtonLabel()
 
         val panelMap = mapOf(
@@ -291,6 +295,61 @@ class MainActivity : AppCompatActivity() {
             } else {
                 panel.alpha = if (shouldShow) 1f else 0f
                 panel.isVisible = shouldShow
+            }
+        }
+    }
+
+    private fun applySurfaceChrome() {
+        when (activeSurface) {
+            Surface.RITUAL -> {
+                binding.kicker.isVisible = !compactChrome
+                binding.kicker.text = getString(R.string.surface_ritual_kicker)
+                binding.libraryHeader.text = getString(R.string.surface_ritual_title)
+                binding.libraryHeader.setTextSize(
+                    TypedValue.COMPLEX_UNIT_SP,
+                    if (compactChrome) 26f else 30f
+                )
+                binding.librarySubtitle.text = getString(R.string.surface_ritual_subtitle)
+                binding.librarySubtitle.setTextSize(
+                    TypedValue.COMPLEX_UNIT_SP,
+                    if (compactChrome) 13f else 15f
+                )
+                binding.librarySubtitle.maxLines = if (compactChrome) 1 else 2
+                binding.stateRow.isVisible = true
+                binding.topGlow.alpha = 0.28f
+                binding.bottomGlow.alpha = 0.18f
+            }
+
+            Surface.LIBRARY -> {
+                binding.kicker.isVisible = true
+                binding.kicker.text = getString(R.string.surface_library_kicker)
+                binding.libraryHeader.text = getString(R.string.surface_library_title)
+                binding.libraryHeader.setTextSize(
+                    TypedValue.COMPLEX_UNIT_SP,
+                    if (compactChrome) 22f else 24f
+                )
+                binding.librarySubtitle.text = getString(R.string.surface_library_subtitle)
+                binding.librarySubtitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
+                binding.librarySubtitle.maxLines = 2
+                binding.stateRow.isVisible = false
+                binding.topGlow.alpha = 0.18f
+                binding.bottomGlow.alpha = 0.12f
+            }
+
+            Surface.VAULT -> {
+                binding.kicker.isVisible = true
+                binding.kicker.text = getString(R.string.surface_vault_kicker)
+                binding.libraryHeader.text = getString(R.string.surface_vault_title)
+                binding.libraryHeader.setTextSize(
+                    TypedValue.COMPLEX_UNIT_SP,
+                    if (compactChrome) 22f else 24f
+                )
+                binding.librarySubtitle.text = getString(R.string.surface_vault_subtitle)
+                binding.librarySubtitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
+                binding.librarySubtitle.maxLines = 2
+                binding.stateRow.isVisible = false
+                binding.topGlow.alpha = 0.16f
+                binding.bottomGlow.alpha = 0.1f
             }
         }
     }
