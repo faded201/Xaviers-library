@@ -244,14 +244,7 @@ class LibraryEngine {
     }
 
     private fun buildBooks(): List<LibraryBook> {
-        val firstWords = listOf(
-            "Ash", "Moon", "Lantern", "Obsidian", "Velvet", "Hollow", "Star", "Cinder",
-            "Ivory", "Thorn", "Gilded", "Ruin", "Whisper", "Grave", "Glass", "Oracle"
-        )
-        val secondWords = listOf(
-            "Crown", "Archive", "Garden", "Engine", "Cathedral", "Parable", "Abyss",
-            "Choir", "Vault", "Harbor", "Throne", "Library", "Sigil", "Mirror", "Sanctum", "Requiem"
-        )
+        val titles = buildUniqueTitles(388)
         val arcNames = listOf(
             "Primordial Record", "Ash Court Cycle", "Velvet Eclipse", "Salt Cathedral", "Hollow Mercy",
             "The Glass Oath", "Starless Bloom", "The Red Lantern Pact"
@@ -279,12 +272,10 @@ class LibraryEngine {
         )
 
         return List(388) { index ->
-            val first = firstWords[index % firstWords.size]
-            val second = secondWords[(index / firstWords.size) % secondWords.size]
             val anchor = canonAnchors[index % canonAnchors.size]
             LibraryBook(
                 id = index,
-                title = "The $first $second",
+                title = titles[index],
                 arcName = arcNames[index % arcNames.size],
                 friendshipThread = friendships[index % friendships.size],
                 enemyThread = enemies[(index + 2) % enemies.size],
@@ -292,6 +283,170 @@ class LibraryEngine {
                 canonAnchor = anchor
             )
         }
+    }
+
+    private fun buildUniqueTitles(count: Int): List<String> {
+        val signatureTitles = listOf(
+            "My Hollowblood System",
+            "Birth of the Cinder Blade",
+            "The Gravebound Prince",
+            "A Lantern for the Hollow King",
+            "Chronicle of the Moon-Eater",
+            "The Necromancer Who Stole Dawn",
+            "Ashen Throne of the Last Saint",
+            "The Obsidian Fox Oath",
+            "Requiem of the Starved Cathedral",
+            "The Blood Archivist's Promise",
+            "The Warden of Broken Suns",
+            "The Silent Tyrant's Library",
+            "Oracle of the Rift Garden",
+            "The Seraph Beneath Black Water",
+            "Empire of the Lantern Dead",
+            "The Wolf of the Drowned Crown",
+            "Saint of the Ninth Labyrinth",
+            "The Grave Harbor Reclaimer",
+            "Moonscript for a Fallen Queen",
+            "The Cursed Heir of Ember Glass",
+            "The Voidbound Alchemist",
+            "The Prince Who Fed the Abyss",
+            "The Crimson Library Pact",
+            "A Cathedral Built for Monsters",
+            "The Last Gate of Hollow Mercy",
+            "Queen of the Ash Orchard",
+            "The Sword Saint of Quiet Ruin",
+            "The Dreaming Warden of Salt",
+            "The Reaper's Golden Scripture",
+            "Blood Oath for the Sleeping Dragon",
+            "The Ivory Monarch Reborn",
+            "The Fox Who Remembered War",
+            "Tower of the Starless Saint",
+            "The Graveflower Cultivator",
+            "The Hollow Seraph's Trial",
+            "The Archive of Unfinished Kings",
+            "The Eclipse Hunter's Reign",
+            "Throne of the Ninth Ember",
+            "The Moonlit Tyrant's Mercy",
+            "The Demon's Book of Glass Teeth",
+            "The Last Archivist of Cinder Vale",
+            "Prayer for the Obsidian Wolf",
+            "The Crownless Reaper",
+            "Stormgate of the Forgotten Heir",
+            "The Velvet Necromancer's Return",
+            "The Dragon Beneath the Library",
+            "The Hollow Prince Ascends",
+            "Book of the Bleeding Oracle",
+            "The Saint Who Taught the Night to Burn",
+            "The Riftborn Swordsman",
+            "Kingdom of the Lantern Serpent",
+            "The Drowned Queen's Codex",
+            "The Gravebound Sovereign",
+            "The Moon Wolf's Ascension",
+            "The Emperor of Broken Tomes",
+            "The Whispering Cathedral Trial",
+            "The Ashborn Harbinger",
+            "The Last Demon of Silver Rain",
+            "The Library at the End of Mourning",
+            "The Cinderblood Chronicle",
+            "The Serpent Crown Testament",
+            "The Iron Saint's Awakening",
+            "Reign of the Hollow Archive",
+            "The Blade That Drank Moonlight",
+            "The Wraith King's Gentle Promise",
+            "The Eclipse Daughter of Ruin",
+            "The Black Harbor Requiem",
+            "Bloodfire for the Sleeping Throne",
+            "The Cultivator of Forgotten Graves",
+            "The Night Library Sovereign",
+            "The Obsidian Saint's Return",
+            "The Gatekeeper of Ashen Stars",
+            "The Last Blessing of the Grave Fox",
+            "The Tyrant Who Collected Tomorrows",
+            "The Moonbound Monastery War",
+            "The Archivist of the Burning Garden",
+            "The Silent Library of Red Snow"
+        )
+        val personalAspects = listOf(
+            "Vampire", "Dragonic", "Shadow", "Demonic", "Graveborn", "Voidwalker",
+            "Runeblade", "Moonbound", "Bloodforged", "Ashen", "Nightborn", "Stormbound",
+            "Oracle", "Seraph", "Ironblood", "Cinderborn", "Eclipse", "Starfallen",
+            "Ghostfire", "Hollowborn", "Thornbound", "Frostgrave"
+        )
+        val personalTracks = listOf(
+            "System", "Legacy", "Codex", "Ascension", "Dominion", "Archive",
+            "Trial", "Awakening", "Scripture", "Reckoning", "Cycle", "Pact"
+        )
+        val birthDescriptors = listOf(
+            "Demonic", "Cinder", "Voidforged", "Moonlit", "Bloodbound", "Obsidian",
+            "Fallen", "Starved", "Runeborn", "Graveborn", "Hollow", "Nightbound",
+            "Ashen", "Ironblood", "Stormscarred", "Ghostfire"
+        )
+        val birthEntities = listOf(
+            "Sword", "Tyrant", "Prince", "Saint", "Necromancer", "Dragon",
+            "Reaper", "Monarch", "Warden", "Seraph", "Hunter", "Oracle",
+            "Fox", "Wolf", "Cultivator", "King"
+        )
+        val realmDescriptors = listOf(
+            "Ashen", "Moonlit", "Hollow", "Obsidian", "Velvet", "Gravebound",
+            "Lantern", "Crimson", "Cinder", "Silent", "Starless", "Ivory",
+            "Riftborn", "Eclipse", "Bloodbound", "Stormglass", "Golden",
+            "Nightbound", "Wraith", "Runebound"
+        )
+        val roles = listOf(
+            "Archivist", "Prince", "Saint", "Warden", "Hunter", "Queen",
+            "King", "Alchemist", "Tyrant", "Seraph", "Reaper", "Cultivator",
+            "Monarch", "Fox", "Oracle", "Dragon", "Heir", "Wolf",
+            "Swordsman", "Harbinger"
+        )
+        val relics = listOf(
+            "Archive", "Cathedral", "Crown", "Vault", "Garden", "Throne",
+            "Labyrinth", "Harbor", "Gate", "Library", "Citadel", "Scripture",
+            "Sanctum", "Kingdom", "Engine", "Requary"
+        )
+        val storyTokens = listOf(
+            "Requiem", "Legacy", "Throne", "Curse", "Covenant", "Empire",
+            "Mercy", "Scripture", "Labyrinth", "Vow", "Harvest", "Chronicle",
+            "Ascension", "Silence", "Eclipse", "Prophecy"
+        )
+        val endings = listOf(
+            "The Last Oath", "Empire of Ash", "The Broken Crown", "The Ninth Gate",
+            "A Kingdom of Embers", "The Silent Reign", "The Final Mercy",
+            "The Starless War", "The Hollow Promise", "The Red Scripture",
+            "The Grave Bloom", "The Black Tide"
+        )
+        val verbs = listOf(
+            "Wakes", "Breaks", "Bleeds", "Ascends", "Hungers", "Returns",
+            "Burns", "Remembers", "Opens", "Kneels", "Howls", "Falls"
+        )
+
+        val titles = mutableListOf<String>()
+        val usedTitles = linkedSetOf<String>()
+
+        signatureTitles.forEach { title ->
+            if (usedTitles.add(title)) {
+                titles += title
+            }
+        }
+
+        var cursor = 0
+        while (titles.size < count) {
+            val candidate = when (cursor % 8) {
+                0 -> "My ${personalAspects[cursor % personalAspects.size]} ${personalTracks[(cursor / 2) % personalTracks.size]}"
+                1 -> "Birth of the ${birthDescriptors[cursor % birthDescriptors.size]} ${birthEntities[(cursor / 3) % birthEntities.size]}"
+                2 -> "The ${realmDescriptors[cursor % realmDescriptors.size]} ${roles[(cursor / 5) % roles.size]}"
+                3 -> "${storyTokens[cursor % storyTokens.size]} of the ${realmDescriptors[(cursor / 4) % realmDescriptors.size]} ${relics[(cursor / 6) % relics.size]}"
+                4 -> "Chronicle of the ${realmDescriptors[cursor % realmDescriptors.size]} ${roles[(cursor / 7) % roles.size]}"
+                5 -> "${realmDescriptors[cursor % realmDescriptors.size]} ${roles[(cursor / 3) % roles.size]}: ${endings[(cursor / 5) % endings.size]}"
+                6 -> "When the ${storyTokens[cursor % storyTokens.size]} ${verbs[(cursor / 2) % verbs.size]}"
+                else -> "The ${roles[cursor % roles.size]}'s ${endings[(cursor / 4) % endings.size]}"
+            }
+
+            if (usedTitles.add(candidate)) {
+                titles += candidate
+            }
+            cursor += 1
+        }
+
+        return titles.take(count)
     }
 
     private fun buildCanonAnchors(): List<CanonAnchor> {
