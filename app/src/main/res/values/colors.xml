@@ -4,6 +4,7 @@
     <color name="bg_stirring">#2A1607</color>
     <color name="bg_awakened">#071B22</color>
     <color name="bg_unleashed">#241207</color>
+    <color name="launcher_icon_background">#120C09</color>
 
     <color name="tome_dormant">#C7A56A</color>
     <color name="tome_stirring">#F2B544</color>

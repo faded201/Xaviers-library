@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:bottom="18dp"
+        android:left="18dp"
+        android:right="18dp"
+        android:top="18dp">
+        <shape android:shape="oval">
+            <solid android:color="#21150E" />
+        </shape>
+    </item>
+
+    <item
+        android:bottom="34dp"
+        android:left="34dp"
+        android:right="34dp"
+        android:top="30dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="18dp" />
+            <gradient
+                android:angle="270"
+                android:endColor="#1A2830"
+                android:startColor="#2D1C10" />
+            <stroke
+                android:width="2dp"
+                android:color="#EAB24A" />
+        </shape>
+    </item>
+
+    <item
+        android:bottom="42dp"
+        android:left="46dp"
+        android:right="46dp"
+        android:top="42dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <solid android:color="#12FFFFFF" />
+        </shape>
+    </item>
+
+    <item
+        android:bottom="58dp"
+        android:left="56dp"
+        android:right="56dp"
+        android:top="58dp">
+        <rotate android:fromDegrees="38">
+            <shape android:shape="rectangle">
+                <corners android:radius="4dp" />
+                <solid android:color="#F2B544" />
+                <size
+                    android:width="18dp"
+                    android:height="72dp" />
+            </shape>
+        </rotate>
+    </item>
+
+    <item
+        android:bottom="58dp"
+        android:left="56dp"
+        android:right="56dp"
+        android:top="58dp">
+        <rotate android:fromDegrees="-38">
+            <shape android:shape="rectangle">
+                <corners android:radius="4dp" />
+                <solid android:color="#63D7E5" />
+                <size
+                    android:width="18dp"
+                    android:height="72dp" />
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

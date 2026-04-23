@@ -4,6 +4,11 @@
     <string name="library_title">Xavier\'s Library</string>
     <string name="library_kicker">Living Tome Ritual</string>
     <string name="library_subtitle">Tap the tome or begin the rite to move through the four sacred states.</string>
+    <string name="splash_kicker">The Forbidden Archive Opens</string>
+    <string name="splash_title_line_one">XAVIER\'S</string>
+    <string name="splash_title_line_two">LIBRARY</string>
+    <string name="splash_tagline">Living tomes • forbidden canon • collector relics</string>
+    <string name="splash_subtitle">Step into the rite. The shelves are awake, the canon is planted, and the next omen is waiting for your touch.</string>
     <string name="surface_ritual_kicker">Living Tome Ritual</string>
     <string name="surface_ritual_title">Xavier\'s Library</string>
     <string name="surface_ritual_subtitle">Awaken the active tome, read the omens, and move through the sacred states.</string>

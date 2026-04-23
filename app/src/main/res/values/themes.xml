@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.XaviersLibrary.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/bg_dormant</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/launcher_icon_background</item>
+        <item name="postSplashScreenTheme">@style/Theme.XaviersLibrary</item>
+    </style>
+
     <style name="Theme.XaviersLibrary" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/tome_stirring</item>
         <item name="colorSecondary">@color/tome_awakened</item>
