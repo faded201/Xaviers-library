@@ -29,6 +29,11 @@
     <string name="home_for_you">For You</string>
     <string name="home_trending">Trending Now</string>
     <string name="home_fresh_drops">Fresh Drops</string>
+    <string name="player_overline">Now Resonating</string>
+    <string name="player_action_play">Play Omen</string>
+    <string name="player_action_stop">Silence</string>
+    <string name="player_ready_badge">Audio Vision Ready</string>
+    <string name="player_live_badge">Live Narration</string>
     <string name="ritual_hint">Each awakening should feel ceremonial: warm, dangerous, and beautiful. We can keep the magic high without overwhelming weaker phones.</string>
     <string name="image_caption_default">Sacred state portrait</string>
     <string name="share_subject">Xavier\'s Library Omen</string>

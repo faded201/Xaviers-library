@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val libraryEngine = LibraryEngine()
+    private lateinit var audioVisualEngine: AudioVisualEngine
     private lateinit var bookShelfAdapter: BookShelfAdapter
     private lateinit var vaultDeckAdapter: VaultDeckAdapter
     private lateinit var forYouAdapter: HomeStoryAdapter
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     private var currentState = TomeState.DORMANT
     private var currentBackgroundColor = 0
     private lateinit var currentSnapshot: RitualSnapshot
+    private var playbackState = PlaybackVisualState()
     private var activeSurface = Surface.RITUAL
     private var selectedBookId = 0
     private val compactChrome by lazy { resources.configuration.screenHeightDp < 760 }
@@ -53,10 +55,37 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private val featuredAudioBars by lazy {
+        listOf(
+            binding.featuredBarOne,
+            binding.featuredBarTwo,
+            binding.featuredBarThree,
+            binding.featuredBarFour,
+            binding.featuredBarFive
+        )
+    }
+
+    private val playerAudioBars by lazy {
+        listOf(
+            binding.playerBarOne,
+            binding.playerBarTwo,
+            binding.playerBarThree,
+            binding.playerBarFour,
+            binding.playerBarFive
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        audioVisualEngine = AudioVisualEngine(this) { state ->
+            runOnUiThread {
+                playbackState = state
+                renderPlaybackState(state)
+            }
+        }
 
         selectedBookId = libraryEngine.currentBook().id
         setupNavigation()
@@ -132,9 +161,12 @@ class MainActivity : AppCompatActivity() {
     private fun setupActions() {
         binding.advanceStateButton.setOnClickListener { handlePrimaryAction() }
         binding.advanceStateButton.setOnLongClickListener { shareCurrentOmen() }
+        binding.continueCard.setOnClickListener { toggleCurrentPlayback() }
+        binding.playerActionButton.setOnClickListener { toggleCurrentPlayback() }
+        binding.featuredSignalShell.setOnClickListener { toggleCurrentPlayback() }
 
         binding.tomeImage.setOnClickListener {
-            advanceRitual()
+            toggleCurrentPlayback()
         }
         binding.tomeImage.setOnLongClickListener { shareCurrentOmen() }
     }
@@ -154,6 +186,7 @@ class MainActivity : AppCompatActivity() {
             animate = true,
             snapshot = libraryEngine.advanceTo(nextState)
         )
+        startCurrentPlayback()
     }
 
     private fun focusSelectedTome() {
@@ -196,6 +229,7 @@ class MainActivity : AppCompatActivity() {
         binding.vaultEconomyCard.strokeColor = accentColor
         binding.vaultArchivistCard.strokeColor = accentColor
         binding.continueCard.strokeColor = accentColor
+        binding.playerCard.strokeColor = accentColor
         updateIndicators(state, accentColor)
         applyNavigationButtonStyles(accentColor)
         applySurfaceChrome()
@@ -203,6 +237,7 @@ class MainActivity : AppCompatActivity() {
         refreshLibraryPanel(accentColor)
         refreshVaultPanel(accentColor)
         updatePrimaryButtonLabel()
+        syncAudioVisualSelection()
 
         if (animate) {
             binding.tomeImage.apply {
@@ -344,6 +379,93 @@ class MainActivity : AppCompatActivity() {
         binding.vaultFusionGuide.text = snapshot.fusionGuide
         binding.vaultArchivistNote.text = snapshot.archivistNote
         vaultDeckAdapter.submit(snapshot.activeDeck, accentColor)
+    }
+
+    private fun syncAudioVisualSelection() {
+        audioVisualEngine.seed(currentPlaybackPayload())
+    }
+
+    private fun toggleCurrentPlayback() {
+        audioVisualEngine.toggle(currentPlaybackPayload())
+    }
+
+    private fun startCurrentPlayback() {
+        audioVisualEngine.start(currentPlaybackPayload())
+    }
+
+    private fun currentPlaybackPayload(): PlaybackPayload {
+        val book = libraryEngine.currentBook()
+        val home = libraryEngine.homeSnapshot()
+        return PlaybackPayload(
+            id = book.id,
+            title = book.title,
+            subtitle = "${home.continueMeta} • ${book.genre}",
+            text = buildNarrationText(book),
+            idleStatus = "${home.continueProgress}% complete • ${home.continueTimeLabel}"
+        )
+    }
+
+    private fun buildNarrationText(book: LibraryBook): String {
+        return buildString {
+            append("${book.title}. ")
+            append("${book.hookLine} ")
+            append("This episode moves through ${book.arcName}. ")
+            append("Friendship thread: ${book.friendshipThread}. ")
+            append("Enemy thread: ${book.enemyThread}. ")
+            append("Seed chapter ${book.canonAnchor.chapterSeed}: ${book.canonAnchor.omen}. ")
+            append("Tonight the payoff bends toward ${book.canonAnchor.payoff}.")
+        }
+    }
+
+    private fun renderPlaybackState(state: PlaybackVisualState) {
+        val accentColor = ContextCompat.getColor(this, currentState.accentRes)
+        val averageLevel = state.levels.average().toFloat()
+
+        binding.playerTitle.text = state.title.ifBlank { libraryEngine.currentBook().title }
+        binding.playerMeta.text = state.subtitle.ifBlank { libraryEngine.currentBook().genre }
+        binding.playerStatus.text = state.status
+        binding.playerProgress.progressTintList = ColorStateList.valueOf(accentColor)
+        binding.playerProgress.progress = state.progress
+        binding.playerActionButton.backgroundTintList = ColorStateList.valueOf(accentColor)
+        binding.playerActionButton.setTextColor(ContextCompat.getColor(this, R.color.nav_selected_text))
+        binding.playerActionButton.text = if (state.isPlaying) {
+            getString(R.string.player_action_stop)
+        } else {
+            getString(R.string.player_action_play)
+        }
+
+        binding.featuredSignalLabel.text = if (state.isPlaying) {
+            getString(R.string.player_live_badge)
+        } else {
+            getString(R.string.player_ready_badge)
+        }
+        binding.continueTimeLabel.text = state.status
+        binding.featuredSignalShell.alpha = if (state.isPlaying) 1f else 0.9f
+        binding.continueCard.alpha = if (state.isPlaying) 1f else 0.97f
+        binding.playerCard.alpha = if (state.isPlaying) 1f else 0.97f
+        binding.edgeAura.alpha = if (state.isPlaying) 0.34f + (averageLevel * 0.18f) else 0.32f
+
+        updateVisualizer(featuredAudioBars, state.levels, accentColor, state.isPlaying)
+        updateVisualizer(playerAudioBars, state.levels, accentColor, state.isPlaying)
+    }
+
+    private fun updateVisualizer(
+        bars: List<View>,
+        levels: List<Float>,
+        accentColor: Int,
+        isPlaying: Boolean
+    ) {
+        bars.forEachIndexed { index, view ->
+            val level = levels.getOrElse(index) { 0.2f }
+            view.backgroundTintList = ColorStateList.valueOf(accentColor)
+            view.pivotY = view.height.toFloat()
+            view.scaleY = if (isPlaying) {
+                0.55f + (level * 1.25f)
+            } else {
+                0.56f + (index * 0.06f)
+            }
+            view.alpha = if (isPlaying) 0.96f else 0.44f + (index * 0.08f)
+        }
     }
 
     private fun showSurface(surface: Surface, animate: Boolean = true) {
@@ -601,6 +723,16 @@ class MainActivity : AppCompatActivity() {
                 .withEndAction { alpha = 0f }
                 .start()
         }
+    }
+
+    override fun onStop() {
+        audioVisualEngine.stop()
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        audioVisualEngine.release()
+        super.onDestroy()
     }
 
     private fun shareCurrentOmen(): Boolean {
