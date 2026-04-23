@@ -19,5 +19,8 @@ This repo now includes a native Android starter scaffold with:
 - Awakened Codex
 - Unleashed Manuscript
 
+## Legacy Image References
+The original reference images from the earlier repo history are still preserved under `src/assets/images/book-states/`.
+
 Asset mapping lives in `docs/tome-assets.txt`.
 System vision lives in [docs/xaviers-universe-blueprint.md](/C:/Users/leanne/OneDrive/Desktop/Xaviers-library/docs/xaviers-universe-blueprint.md).
