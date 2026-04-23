@@ -13,16 +13,30 @@ import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.xaviers.library.databinding.ActivityMainBinding
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
+import com.xaviers.library.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private enum class Surface {
+        RITUAL,
+        LIBRARY,
+        VAULT
+    }
+
     private lateinit var binding: ActivityMainBinding
     private val libraryEngine = LibraryEngine()
+    private lateinit var bookShelfAdapter: BookShelfAdapter
+    private lateinit var vaultDeckAdapter: VaultDeckAdapter
     private var currentState = TomeState.DORMANT
     private var currentBackgroundColor = 0
     private lateinit var currentSnapshot: RitualSnapshot
+    private var activeSurface = Surface.RITUAL
+    private var selectedBookId = 0
+
     private val indicatorViews by lazy {
         listOf(
             binding.indicatorOne,
@@ -36,22 +50,82 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        selectedBookId = libraryEngine.currentBook().id
+        setupNavigation()
+        setupLists()
+        setupActions()
         startAmbientPulse()
         startTomeDrift()
 
-        binding.advanceStateButton.setOnClickListener {
-            val nextState = currentState.next()
-            renderState(nextState, animate = true, snapshot = libraryEngine.advanceTo(nextState))
+        renderState(
+            state = currentState,
+            animate = false,
+            snapshot = libraryEngine.snapshotFor(currentState)
+        )
+        showSurface(Surface.RITUAL, animate = false)
+    }
+
+    private fun setupNavigation() {
+        binding.navRitualButton.setOnClickListener { showSurface(Surface.RITUAL) }
+        binding.navLibraryButton.setOnClickListener { showSurface(Surface.LIBRARY) }
+        binding.navVaultButton.setOnClickListener { showSurface(Surface.VAULT) }
+    }
+
+    private fun setupLists() {
+        bookShelfAdapter = BookShelfAdapter { entry ->
+            selectedBookId = entry.id
+            refreshLibraryPanel(ContextCompat.getColor(this, currentState.accentRes))
+            updatePrimaryButtonLabel()
         }
+        binding.bookRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = bookShelfAdapter
+            setHasFixedSize(true)
+        }
+
+        vaultDeckAdapter = VaultDeckAdapter()
+        binding.vaultDeckRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = vaultDeckAdapter
+            isNestedScrollingEnabled = false
+        }
+    }
+
+    private fun setupActions() {
+        binding.advanceStateButton.setOnClickListener { handlePrimaryAction() }
         binding.advanceStateButton.setOnLongClickListener { shareCurrentOmen() }
 
         binding.tomeImage.setOnClickListener {
-            val nextState = currentState.next()
-            renderState(nextState, animate = true, snapshot = libraryEngine.advanceTo(nextState))
+            advanceRitual()
         }
         binding.tomeImage.setOnLongClickListener { shareCurrentOmen() }
+    }
 
-        renderState(currentState, animate = false, snapshot = libraryEngine.snapshotFor(currentState))
+    private fun handlePrimaryAction() {
+        when (activeSurface) {
+            Surface.RITUAL -> advanceRitual()
+            Surface.LIBRARY -> focusSelectedTome()
+            Surface.VAULT -> shareCurrentOmen()
+        }
+    }
+
+    private fun advanceRitual() {
+        val nextState = currentState.next()
+        renderState(
+            state = nextState,
+            animate = true,
+            snapshot = libraryEngine.advanceTo(nextState)
+        )
+    }
+
+    private fun focusSelectedTome() {
+        renderState(
+            state = currentState,
+            animate = true,
+            snapshot = libraryEngine.focusBook(selectedBookId, currentState)
+        )
+        showSurface(Surface.RITUAL)
     }
 
     private fun renderState(state: TomeState, animate: Boolean, snapshot: RitualSnapshot) {
@@ -60,6 +134,7 @@ class MainActivity : AppCompatActivity() {
         currentState = state
         currentBackgroundColor = nextBackground
         currentSnapshot = snapshot
+        selectedBookId = libraryEngine.currentBook().id
 
         binding.stateBadge.text = getString(state.titleRes)
         binding.librarySubtitle.text = snapshot.librarySubtitle
@@ -69,7 +144,6 @@ class MainActivity : AppCompatActivity() {
         binding.ritualHint.text = snapshot.ritualHint
         binding.imageCaption.text = snapshot.imageCaption
         binding.tomeImage.setImageResource(state.imageRes)
-        binding.advanceStateButton.text = snapshot.buttonLabel
 
         val accentColor = ContextCompat.getColor(this, state.accentRes)
         binding.stateBadge.chipBackgroundColor = ContextCompat.getColorStateList(this, state.accentRes)
@@ -80,7 +154,15 @@ class MainActivity : AppCompatActivity() {
         binding.ghostFlash.backgroundTintList = ColorStateList.valueOf(accentColor)
         binding.stateCard.strokeColor = accentColor
         binding.imageCard.strokeColor = accentColor
+        binding.selectedTomeCard.strokeColor = accentColor
+        binding.vaultDeckCard.strokeColor = accentColor
+        binding.vaultEconomyCard.strokeColor = accentColor
+        binding.vaultArchivistCard.strokeColor = accentColor
         updateIndicators(state, accentColor)
+        applyNavigationButtonStyles(accentColor)
+        refreshLibraryPanel(accentColor)
+        refreshVaultPanel(accentColor)
+        updatePrimaryButtonLabel()
 
         if (animate) {
             binding.tomeImage.apply {
@@ -160,6 +242,114 @@ class MainActivity : AppCompatActivity() {
         snapshot.eventBanner?.let { event ->
             Snackbar.make(binding.root, event, Snackbar.LENGTH_SHORT).show()
         }
+    }
+
+    private fun refreshLibraryPanel(accentColor: Int) {
+        val selectedBook = libraryEngine.bookById(selectedBookId)
+        binding.selectedTomeTitle.text = "${selectedBook.tomeCode} • ${selectedBook.title}"
+        binding.selectedTomeMeta.text = "${selectedBook.arcName} • ${selectedBook.sceneSignature}"
+        binding.selectedTomeHint.text = buildString {
+            appendLine("Seed ${selectedBook.canonAnchor.chapterSeed}: ${selectedBook.canonAnchor.omen}")
+            appendLine("Friendship: ${selectedBook.friendshipThread}")
+            append("Enemy: ${selectedBook.enemyThread}")
+        }
+
+        bookShelfAdapter.submit(
+            items = libraryEngine.shelfEntries(),
+            selectedBookId = selectedBookId,
+            accentColor = accentColor
+        )
+    }
+
+    private fun refreshVaultPanel(accentColor: Int) {
+        val snapshot = libraryEngine.vaultSnapshot()
+        binding.vaultInkValue.text = "${snapshot.aetherInk} Aether Ink"
+        binding.vaultTierCounts.text = snapshot.tierCounts.joinToString("   •   ") {
+            "${it.tier.label}: ${it.count}"
+        }
+        binding.vaultFusionGuide.text = snapshot.fusionGuide
+        binding.vaultArchivistNote.text = snapshot.archivistNote
+        vaultDeckAdapter.submit(snapshot.activeDeck, accentColor)
+    }
+
+    private fun showSurface(surface: Surface, animate: Boolean = true) {
+        activeSurface = surface
+        val accentColor = ContextCompat.getColor(this, currentState.accentRes)
+        applyNavigationButtonStyles(accentColor)
+        updatePrimaryButtonLabel()
+
+        val panelMap = mapOf(
+            Surface.RITUAL to binding.ritualPanel,
+            Surface.LIBRARY to binding.libraryPanel,
+            Surface.VAULT to binding.vaultPanel
+        )
+
+        panelMap.forEach { (targetSurface, panel) ->
+            val shouldShow = targetSurface == surface
+            if (animate) {
+                animatePanel(panel, shouldShow)
+            } else {
+                panel.alpha = if (shouldShow) 1f else 0f
+                panel.isVisible = shouldShow
+            }
+        }
+    }
+
+    private fun animatePanel(panel: View, show: Boolean) {
+        if (show) {
+            panel.isVisible = true
+            panel.alpha = 0f
+            panel.translationY = 18f
+            panel.animate()
+                .alpha(1f)
+                .translationY(0f)
+                .setDuration(220L)
+                .setInterpolator(DecelerateInterpolator())
+                .start()
+        } else if (panel.isVisible) {
+            panel.animate()
+                .alpha(0f)
+                .translationY(12f)
+                .setDuration(160L)
+                .setInterpolator(AccelerateInterpolator())
+                .withEndAction {
+                    panel.isVisible = false
+                    panel.translationY = 0f
+                }
+                .start()
+        }
+    }
+
+    private fun updatePrimaryButtonLabel() {
+        binding.advanceStateButton.text = when (activeSurface) {
+            Surface.RITUAL -> currentSnapshot.buttonLabel
+            Surface.LIBRARY -> if (selectedBookId == libraryEngine.currentBook().id) {
+                getString(R.string.button_return_to_rite)
+            } else {
+                getString(R.string.button_focus_selected_tome)
+            }
+            Surface.VAULT -> getString(R.string.button_share_active_omen)
+        }
+    }
+
+    private fun applyNavigationButtonStyles(accentColor: Int) {
+        styleNavButton(binding.navRitualButton, activeSurface == Surface.RITUAL, accentColor)
+        styleNavButton(binding.navLibraryButton, activeSurface == Surface.LIBRARY, accentColor)
+        styleNavButton(binding.navVaultButton, activeSurface == Surface.VAULT, accentColor)
+    }
+
+    private fun styleNavButton(button: MaterialButton, isSelected: Boolean, accentColor: Int) {
+        val backgroundColor = if (isSelected) accentColor else ContextCompat.getColor(this, R.color.nav_surface)
+        val strokeColor = if (isSelected) accentColor else ContextCompat.getColor(this, R.color.card_stroke)
+        val textColor = if (isSelected) {
+            ContextCompat.getColor(this, R.color.nav_selected_text)
+        } else {
+            ContextCompat.getColor(this, R.color.nav_unselected_text)
+        }
+
+        button.backgroundTintList = ColorStateList.valueOf(backgroundColor)
+        button.strokeColor = ColorStateList.valueOf(strokeColor)
+        button.setTextColor(textColor)
     }
 
     private fun updateIndicators(state: TomeState, accentColor: Int) {

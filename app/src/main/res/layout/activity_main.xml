@@ -71,7 +71,7 @@
         android:id="@+id/stateRow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -124,139 +124,467 @@
     </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/imageCard"
+        android:id="@+id/navigationCard"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="18dp"
-        app:cardBackgroundColor="@color/image_frame_surface"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="14dp"
-        app:strokeColor="@color/image_frame_stroke"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        app:cardBackgroundColor="@color/nav_surface"
+        app:cardCornerRadius="26dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/card_stroke"
         app:strokeWidth="1dp"
-        app:layout_constraintBottom_toTopOf="@id/stateCard"
-        app:layout_constraintDimensionRatio="4:3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/stateRow">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/tomeImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/tome_image_content_description"
-                android:foreground="?attr/selectableItemBackground"
-                android:scaleType="centerCrop" />
-
-            <View
-                android:id="@+id/edgeAura"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0.32"
-                android:background="@drawable/edge_aura" />
-
-            <View
-                android:id="@+id/imageScrim"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/card_overlay_scrim" />
-
-            <View
-                android:id="@+id/ghostFlash"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0"
-                android:background="@drawable/ghost_flash_overlay" />
-
-            <View
-                android:id="@+id/shimmerSweep"
-                android:layout_width="160dp"
-                android:layout_height="match_parent"
-                android:alpha="0"
-                android:background="@drawable/shimmer_sweep"
-                android:rotation="-12" />
-
-            <TextView
-                android:id="@+id/imageCaption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|start"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="20dp"
-                android:fontFamily="monospace"
-                android:letterSpacing="0.18"
-                android:text="@string/image_caption_default"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                android:textSize="11sp" />
-        </FrameLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/stateCard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="18dp"
-        app:cardBackgroundColor="@color/card_surface"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="10dp"
-        app:strokeColor="@color/card_stroke"
-        app:strokeWidth="1dp"
-        app:layout_constraintBottom_toTopOf="@id/advanceStateButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/navRitualButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/nav_ritual"
+                android:textAllCaps="false"
+                app:cornerRadius="22dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/navLibraryButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/nav_library"
+                android:textAllCaps="false"
+                app:cornerRadius="22dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/navVaultButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/nav_vault"
+                android:textAllCaps="false"
+                app:cornerRadius="22dp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <FrameLayout
+        android:id="@+id/panelHost"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintBottom_toTopOf="@id/advanceStateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navigationCard">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ritualPanel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/imageCard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:cardBackgroundColor="@color/image_frame_surface"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="14dp"
+                app:strokeColor="@color/image_frame_stroke"
+                app:strokeWidth="1dp"
+                app:layout_constraintBottom_toTopOf="@id/stateCard"
+                app:layout_constraintDimensionRatio="4:3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/tomeImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/tome_image_content_description"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:scaleType="centerCrop" />
+
+                    <View
+                        android:id="@+id/edgeAura"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:alpha="0.32"
+                        android:background="@drawable/edge_aura" />
+
+                    <View
+                        android:id="@+id/imageScrim"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/card_overlay_scrim" />
+
+                    <View
+                        android:id="@+id/ghostFlash"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:alpha="0"
+                        android:background="@drawable/ghost_flash_overlay" />
+
+                    <View
+                        android:id="@+id/shimmerSweep"
+                        android:layout_width="160dp"
+                        android:layout_height="match_parent"
+                        android:alpha="0"
+                        android:background="@drawable/shimmer_sweep"
+                        android:rotation="-12" />
+
+                    <TextView
+                        android:id="@+id/imageCaption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|start"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:fontFamily="monospace"
+                        android:letterSpacing="0.18"
+                        android:text="@string/image_caption_default"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textSize="11sp" />
+                </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/stateCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                app:cardBackgroundColor="@color/card_surface"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="10dp"
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="22dp">
+
+                    <TextView
+                        android:id="@+id/stateOverline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:letterSpacing="0.22"
+                        android:text="@string/state_overline"
+                        android:textAllCaps="true"
+                        android:textColor="@color/text_tertiary"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/stateTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="serif"
+                        android:textColor="@android:color/white"
+                        android:textSize="26sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/stateSubtitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:lineSpacingExtra="4dp"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/ritualHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/ritual_hint"
+                        android:textColor="@color/text_hint"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/libraryPanel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="22dp">
+            android:visibility="gone">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/selectedTomeCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardBackgroundColor="@color/card_surface"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="10dp"
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="22dp">
+
+                    <TextView
+                        android:id="@+id/selectedTomeOverline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:letterSpacing="0.22"
+                        android:text="@string/library_selected_overline"
+                        android:textAllCaps="true"
+                        android:textColor="@color/text_tertiary"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/selectedTomeTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/selectedTomeMeta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/selectedTomeHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:textColor="@color/text_hint"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
-                android:id="@+id/stateOverline"
-                android:layout_width="wrap_content"
+                android:id="@+id/libraryShelfLabel"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
                 android:fontFamily="monospace"
-                android:letterSpacing="0.22"
-                android:text="@string/state_overline"
+                android:letterSpacing="0.18"
+                android:text="@string/library_shelf_label"
                 android:textAllCaps="true"
                 android:textColor="@color/text_tertiary"
                 android:textSize="11sp" />
 
-            <TextView
-                android:id="@+id/stateTitle"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bookRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="serif"
-                android:textColor="@android:color/white"
-                android:textSize="26sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/stateSubtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:lineSpacingExtra="4dp"
-                android:textColor="@color/text_secondary"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/ritualHint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/ritual_hint"
-                android:textColor="@color/text_hint"
-                android:textSize="13sp" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingBottom="16dp" />
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/vaultPanel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="12dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/vaultDeckCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    app:cardBackgroundColor="@color/card_surface"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="10dp"
+                    app:strokeColor="@color/card_stroke"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="22dp">
+
+                        <TextView
+                            android:id="@+id/vaultDeckOverline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.22"
+                            android:text="@string/vault_deck_overline"
+                            android:textAllCaps="true"
+                            android:textColor="@color/text_tertiary"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/vaultDeckTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/vault_deck_title"
+                            android:textColor="@android:color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/vaultDeckSubtitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/vault_deck_subtitle"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/vaultDeckRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="220dp"
+                            android:layout_marginTop="18dp"
+                            android:clipToPadding="false"
+                            android:overScrollMode="never"
+                            android:paddingEnd="12dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/vaultEconomyCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    app:cardBackgroundColor="@color/card_surface"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="10dp"
+                    app:strokeColor="@color/card_stroke"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="22dp">
+
+                        <TextView
+                            android:id="@+id/vaultEconomyOverline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.22"
+                            android:text="@string/vault_economy_overline"
+                            android:textAllCaps="true"
+                            android:textColor="@color/text_tertiary"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/vaultInkValue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@android:color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/vaultTierCounts"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/vaultFusionGuide"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:textColor="@color/text_hint"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/vaultArchivistCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/card_surface"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="10dp"
+                    app:strokeColor="@color/card_stroke"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="22dp">
+
+                        <TextView
+                            android:id="@+id/vaultArchivistOverline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.22"
+                            android:text="@string/vault_archivist_overline"
+                            android:textAllCaps="true"
+                            android:textColor="@color/text_tertiary"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/vaultArchivistNote"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/advanceStateButton"

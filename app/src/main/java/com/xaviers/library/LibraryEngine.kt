@@ -19,6 +19,19 @@ class LibraryEngine {
         return buildSnapshot(state, eventBanner = null)
     }
 
+    fun currentBook(): LibraryBook = books[activeBookIndex]
+
+    fun bookById(id: Int): LibraryBook = books[id.coerceIn(0, books.lastIndex)]
+
+    fun focusBook(bookId: Int, state: TomeState): RitualSnapshot {
+        activeBookIndex = bookId.coerceIn(0, books.lastIndex)
+        val book = currentBook()
+        return buildSnapshot(
+            state = state,
+            eventBanner = "${book.tomeCode} has been drawn from the shelf. The rite now bends toward ${book.title}."
+        )
+    }
+
     fun advanceTo(state: TomeState): RitualSnapshot {
         if (state == TomeState.DORMANT && awakenCount > 0) {
             activeBookIndex = (activeBookIndex + 1) % books.size
@@ -29,6 +42,56 @@ class LibraryEngine {
         awakenCount += 1
 
         return buildSnapshot(state, reward.eventBanner)
+    }
+
+    fun shelfEntries(): List<BookShelfEntry> {
+        val focusedId = currentBook().id
+        return books.map { book ->
+            BookShelfEntry(
+                id = book.id,
+                tomeCode = book.tomeCode,
+                title = book.title,
+                arcName = book.arcName,
+                sceneSignature = book.sceneSignature,
+                seedLine = "Seed ${book.canonAnchor.chapterSeed} • ${book.canonAnchor.omen}",
+                isFocused = book.id == focusedId
+            )
+        }
+    }
+
+    fun vaultSnapshot(): VaultSnapshot {
+        val current = currentBook()
+        val activeDeck = activeDeck()
+        val tierCounts = CollectorTier.entries.map { tier ->
+            TierCount(
+                tier = tier,
+                count = inventory.entries
+                    .filter { it.key.second == tier }
+                    .sumOf { it.value }
+            )
+        }
+
+        val fusionGuide = CollectorTier.entries
+            .mapNotNull { tier ->
+                val cost = tier.fusionCost ?: return@mapNotNull null
+                val next = tier.nextTier() ?: return@mapNotNull null
+                "${cost} ${tier.label} -> 1 ${next.label}"
+            }
+            .joinToString("   •   ")
+
+        val deckNames = if (activeDeck.isEmpty()) {
+            "the shelf is quiet"
+        } else {
+            activeDeck.joinToString(", ") { it.archetype.name }
+        }
+
+        return VaultSnapshot(
+            aetherInk = aetherInk,
+            activeDeck = activeDeck,
+            tierCounts = tierCounts,
+            fusionGuide = fusionGuide,
+            archivistNote = "Current deck: $deckNames. ${current.title} is listening for ${current.canonAnchor.payoff.lowercase()}."
+        )
     }
 
     private fun buildSnapshot(state: TomeState, eventBanner: String?): RitualSnapshot {

@@ -75,3 +75,26 @@ data class RitualSnapshot(
     val eventBanner: String?,
     val shareText: String
 )
+
+data class BookShelfEntry(
+    val id: Int,
+    val tomeCode: String,
+    val title: String,
+    val arcName: String,
+    val sceneSignature: String,
+    val seedLine: String,
+    val isFocused: Boolean
+)
+
+data class TierCount(
+    val tier: CollectorTier,
+    val count: Int
+)
+
+data class VaultSnapshot(
+    val aetherInk: Int,
+    val activeDeck: List<CardStack>,
+    val tierCounts: List<TierCount>,
+    val fusionGuide: String,
+    val archivistNote: String
+)
