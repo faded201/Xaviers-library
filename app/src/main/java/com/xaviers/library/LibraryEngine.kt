@@ -530,48 +530,91 @@ class LibraryEngine {
 
         val titles = mutableListOf<String>()
         val usedTitles = linkedSetOf<String>()
-
-        curatedBanks.forEach { bank ->
-            bank.forEach { title ->
-                if (usedTitles.add(title)) {
-                    titles += title
-                }
+        fun addTitle(candidate: String) {
+            if (titles.size < count && usedTitles.add(candidate)) {
+                titles += candidate
             }
         }
 
-        var cursor = 0
-        while (titles.size < count) {
-            val candidate = when (cursor % 10) {
-                0 -> "My ${systemSubjects[cursor % systemSubjects.size]} ${systemHooks[(cursor / 2) % systemHooks.size]}"
-                1 -> "The ${romanceRoles[cursor % romanceRoles.size]} I ${romanceActions[(cursor / 3) % romanceActions.size]}"
-                2 -> "${warSubjects[cursor % warSubjects.size]} ${warHooks[(cursor / 4) % warHooks.size]}"
-                3 -> "Don't ${thrillerActions[cursor % thrillerActions.size]} the ${thrillerObjects[(cursor / 5) % thrillerObjects.size]}"
-                4 -> when ((cursor / 2) % 3) {
-                    0 -> "After ${sciFiPlaces[cursor % sciFiPlaces.size]} ${sciFiEvents[(cursor / 4) % sciFiEvents.size]}"
-                    1 -> "${sciFiSignals[(cursor / 3) % sciFiSignals.size]} from ${sciFiPlaces[(cursor / 5) % sciFiPlaces.size]}"
-                    else -> "${sciFiPlaces[cursor % sciFiPlaces.size]} at the End of Time"
-                }
-                5 -> "The ${horrorPlaces[cursor % horrorPlaces.size]} ${horrorHooks[(cursor / 4) % horrorHooks.size]}"
-                6 -> "The ${academyRanks[cursor % academyRanks.size]} ${academyRoles[(cursor / 5) % academyRoles.size]} of ${academyNames[(cursor / 7) % academyNames.size]}"
-                7 -> when ((cursor / 3) % 3) {
-                    0 -> "The Last ${apocalypseRoutes[cursor % apocalypseRoutes.size]} to ${apocalypseTargets[(cursor / 6) % apocalypseTargets.size]}"
-                    1 -> "Survive Until ${apocalypseTargets[(cursor / 5) % apocalypseTargets.size]}"
-                    else -> "After ${apocalypseStates[cursor % apocalypseStates.size]}"
-                }
-                8 -> when ((cursor / 2) % 5) {
-                    0 -> "${urbanJobs[0]} ${urbanThreats[cursor % urbanThreats.size]}"
-                    1 -> "${urbanJobs[1]} ${urbanThreats[(cursor / 4) % urbanThreats.size]}"
-                    2 -> "${urbanJobs[2]} ${urbanCities[(cursor / 3) % urbanCities.size]}"
-                    3 -> "${urbanJobs[3]} ${urbanThreats[(cursor / 5) % urbanThreats.size]}"
-                    else -> "${urbanJobs[4]} ${urbanThreats[(cursor / 6) % urbanThreats.size]}"
-                }
-                else -> "The ${politicalRoles[cursor % politicalRoles.size]} of ${politicalHooks[(cursor / 5) % politicalHooks.size]}"
+        curatedBanks.forEach { bank ->
+            bank.forEach { title ->
+                addTitle(title)
             }
+        }
 
-            if (usedTitles.add(candidate)) {
-                titles += candidate
+        for (subject in systemSubjects) {
+            for (hook in systemHooks) {
+                addTitle("My $subject $hook")
             }
-            cursor += 1
+        }
+        for (role in romanceRoles) {
+            for (action in romanceActions) {
+                addTitle("The $role I $action")
+            }
+        }
+        for (subject in warSubjects) {
+            for (hook in warHooks) {
+                addTitle("$subject $hook")
+            }
+        }
+        for (action in thrillerActions) {
+            for (obj in thrillerObjects) {
+                addTitle("Don't $action the $obj")
+            }
+        }
+        for (place in sciFiPlaces) {
+            for (event in sciFiEvents) {
+                addTitle("After $place $event")
+            }
+            addTitle("$place at the End of Time")
+        }
+        for (signal in sciFiSignals) {
+            for (place in sciFiPlaces) {
+                addTitle("$signal from $place")
+            }
+        }
+        for (place in horrorPlaces) {
+            for (hook in horrorHooks) {
+                addTitle("The $place $hook")
+            }
+        }
+        for (rank in academyRanks) {
+            for (role in academyRoles) {
+                for (academy in academyNames) {
+                    addTitle("The $rank $role of $academy")
+                }
+            }
+        }
+        for (route in apocalypseRoutes) {
+            for (target in apocalypseTargets) {
+                addTitle("The Last $route to $target")
+            }
+        }
+        apocalypseTargets.forEach { target ->
+            addTitle("Survive Until $target")
+        }
+        apocalypseStates.forEach { state ->
+            addTitle("After $state")
+        }
+        urbanThreats.forEach { threat ->
+            addTitle("${urbanJobs[0]} $threat")
+            addTitle("${urbanJobs[1]} $threat")
+            addTitle("${urbanJobs[3]} $threat")
+            addTitle("${urbanJobs[4]} $threat")
+        }
+        urbanCities.forEach { city ->
+            addTitle("${urbanJobs[2]} $city")
+        }
+        for (role in politicalRoles) {
+            for (hook in politicalHooks) {
+                addTitle("The $role of $hook")
+            }
+        }
+
+        var fallback = 1
+        while (titles.size < count) {
+            addTitle("Xavier's Library Chronicle $fallback")
+            fallback += 1
         }
 
         return titles.take(count)
