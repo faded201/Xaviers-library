@@ -10,6 +10,10 @@ data class CanonAnchor(
 data class LibraryBook(
     val id: Int,
     val title: String,
+    val genre: String,
+    val hookLine: String,
+    val episodeCount: Int,
+    val runtimeMinutes: Int,
     val arcName: String,
     val friendshipThread: String,
     val enemyThread: String,
@@ -80,10 +84,33 @@ data class BookShelfEntry(
     val id: Int,
     val tomeCode: String,
     val title: String,
+    val genre: String,
     val arcName: String,
     val sceneSignature: String,
     val seedLine: String,
     val isFocused: Boolean
+)
+
+data class HomeRailItem(
+    val id: Int,
+    val title: String,
+    val genre: String,
+    val meta: String,
+    val hookLine: String
+)
+
+data class HomeSnapshot(
+    val heroTitle: String,
+    val heroGenre: String,
+    val heroHook: String,
+    val continueLabel: String,
+    val continueMeta: String,
+    val continueProgress: Int,
+    val continueTimeLabel: String,
+    val featuredGenres: List<String>,
+    val forYou: List<HomeRailItem>,
+    val trending: List<HomeRailItem>,
+    val freshDrops: List<HomeRailItem>
 )
 
 data class TierCount(

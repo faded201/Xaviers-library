@@ -8,6 +8,7 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
+import android.widget.LinearLayout
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
@@ -17,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import com.xaviers.library.databinding.ActivityMainBinding
 
@@ -32,6 +34,9 @@ class MainActivity : AppCompatActivity() {
     private val libraryEngine = LibraryEngine()
     private lateinit var bookShelfAdapter: BookShelfAdapter
     private lateinit var vaultDeckAdapter: VaultDeckAdapter
+    private lateinit var forYouAdapter: HomeStoryAdapter
+    private lateinit var trendingAdapter: HomeStoryAdapter
+    private lateinit var freshAdapter: HomeStoryAdapter
     private var currentState = TomeState.DORMANT
     private var currentBackgroundColor = 0
     private lateinit var currentSnapshot: RitualSnapshot
@@ -75,6 +80,36 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupLists() {
+        val railClick: (HomeRailItem) -> Unit = { item ->
+            selectedBookId = item.id
+            renderState(
+                state = currentState,
+                animate = true,
+                snapshot = libraryEngine.focusBook(item.id, currentState)
+            )
+            showSurface(Surface.RITUAL)
+        }
+
+        forYouAdapter = HomeStoryAdapter(railClick)
+        trendingAdapter = HomeStoryAdapter(railClick)
+        freshAdapter = HomeStoryAdapter(railClick)
+
+        binding.forYouRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = forYouAdapter
+            isNestedScrollingEnabled = false
+        }
+        binding.trendingRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = trendingAdapter
+            isNestedScrollingEnabled = false
+        }
+        binding.freshRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = freshAdapter
+            isNestedScrollingEnabled = false
+        }
+
         bookShelfAdapter = BookShelfAdapter { entry ->
             selectedBookId = entry.id
             refreshLibraryPanel(ContextCompat.getColor(this, currentState.accentRes))
@@ -160,9 +195,11 @@ class MainActivity : AppCompatActivity() {
         binding.vaultDeckCard.strokeColor = accentColor
         binding.vaultEconomyCard.strokeColor = accentColor
         binding.vaultArchivistCard.strokeColor = accentColor
+        binding.continueCard.strokeColor = accentColor
         updateIndicators(state, accentColor)
         applyNavigationButtonStyles(accentColor)
         applySurfaceChrome()
+        refreshHomePanel(accentColor)
         refreshLibraryPanel(accentColor)
         refreshVaultPanel(accentColor)
         updatePrimaryButtonLabel()
@@ -247,10 +284,44 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun refreshHomePanel(accentColor: Int) {
+        val home = libraryEngine.homeSnapshot()
+        val currentBook = libraryEngine.currentBook()
+
+        binding.featuredGenre.text = home.heroGenre
+        binding.featuredGenre.backgroundTintList = ColorStateList.valueOf(accentColor)
+        binding.featuredTitle.text = home.heroTitle
+        binding.featuredHook.text = home.heroHook
+        binding.continueLabel.text = home.continueLabel
+        binding.continueMeta.text = home.continueMeta
+        binding.continueProgress.progressTintList = ColorStateList.valueOf(accentColor)
+        binding.continueProgress.progress = home.continueProgress
+        binding.continueTimeLabel.text = "${home.continueProgress}% complete • ${home.continueTimeLabel}"
+
+        binding.stateOverline.text = getString(R.string.home_story_brief_overline)
+        binding.stateTitle.text = currentBook.title
+        binding.stateSubtitle.text = "${currentBook.genre} • ${currentBook.hookLine}"
+        binding.ritualHint.text = buildString {
+            appendLine("Arc: ${currentBook.arcName}")
+            appendLine("Friendship thread: ${currentBook.friendshipThread}")
+            appendLine("Enemy thread: ${currentBook.enemyThread}")
+            append("Seed ${currentBook.canonAnchor.chapterSeed}: ${currentBook.canonAnchor.omen}")
+        }
+
+        binding.genreChipRow.removeAllViews()
+        home.featuredGenres.forEachIndexed { index, genre ->
+            binding.genreChipRow.addView(createGenreChip(genre, accentColor, index))
+        }
+
+        forYouAdapter.submit(home.forYou, accentColor)
+        trendingAdapter.submit(home.trending, accentColor)
+        freshAdapter.submit(home.freshDrops, accentColor)
+    }
+
     private fun refreshLibraryPanel(accentColor: Int) {
         val selectedBook = libraryEngine.bookById(selectedBookId)
         binding.selectedTomeTitle.text = "${selectedBook.tomeCode} • ${selectedBook.title}"
-        binding.selectedTomeMeta.text = "${selectedBook.arcName} • ${selectedBook.sceneSignature}"
+        binding.selectedTomeMeta.text = "${selectedBook.genre} • ${selectedBook.arcName} • ${selectedBook.sceneSignature}"
         binding.selectedTomeHint.text = buildString {
             appendLine("Seed ${selectedBook.canonAnchor.chapterSeed}: ${selectedBook.canonAnchor.omen}")
             appendLine("Friendship: ${selectedBook.friendshipThread}")
@@ -351,6 +422,40 @@ class MainActivity : AppCompatActivity() {
                 binding.topGlow.alpha = 0.16f
                 binding.bottomGlow.alpha = 0.1f
             }
+        }
+    }
+
+    private fun createGenreChip(label: String, accentColor: Int, index: Int): Chip {
+        val isFeatured = index == 0
+        return Chip(this).apply {
+            text = label
+            isCheckable = false
+            isClickable = false
+            setTextColor(
+                ContextCompat.getColor(
+                    this@MainActivity,
+                    if (isFeatured) R.color.nav_selected_text else R.color.nav_unselected_text
+                )
+            )
+            chipBackgroundColor = ColorStateList.valueOf(
+                if (isFeatured) accentColor else ContextCompat.getColor(this@MainActivity, R.color.card_surface_soft)
+            )
+            chipStrokeColor = ColorStateList.valueOf(accentColor)
+            chipStrokeWidth = 1f
+            chipCornerRadius = 22f
+            setEnsureMinTouchTargetSize(false)
+            textSize = 12f
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                marginEnd = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    12f,
+                    resources.displayMetrics
+                ).toInt()
+            }
+            layoutParams = params
         }
     }
 

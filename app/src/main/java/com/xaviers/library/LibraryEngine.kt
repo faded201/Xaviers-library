@@ -51,12 +51,31 @@ class LibraryEngine {
                 id = book.id,
                 tomeCode = book.tomeCode,
                 title = book.title,
+                genre = book.genre,
                 arcName = book.arcName,
                 sceneSignature = book.sceneSignature,
                 seedLine = "Seed ${book.canonAnchor.chapterSeed} • ${book.canonAnchor.omen}",
                 isFocused = book.id == focusedId
             )
         }
+    }
+
+    fun homeSnapshot(): HomeSnapshot {
+        val featured = currentBook()
+        val genreOrder = books.map { it.genre }.distinct().take(6)
+        return HomeSnapshot(
+            heroTitle = featured.title,
+            heroGenre = featured.genre,
+            heroHook = featured.hookLine,
+            continueLabel = "Continue • Episode ${featuredEpisode(featured)} of ${featured.episodeCount}",
+            continueMeta = "${featured.runtimeMinutes} min listen • ${featured.arcName}",
+            continueProgress = listeningProgressFor(featured),
+            continueTimeLabel = "${minutesRemainingFor(featured)} min left",
+            featuredGenres = genreOrder,
+            forYou = railItemsFrom(activeBookIndex, listOf(featured.genre, "Romance", "LitRPG"), 8),
+            trending = railItemsFrom((activeBookIndex + 7) % books.size, listOf("War Epic", "Thriller", "Dark Fantasy"), 8),
+            freshDrops = railItemsFrom((activeBookIndex + 14) % books.size, listOf("Sci-Fi", "Horror", "Academy", "Urban Fantasy"), 8)
+        )
     }
 
     fun vaultSnapshot(): VaultSnapshot {
@@ -128,14 +147,14 @@ class LibraryEngine {
         }
 
         return RitualSnapshot(
-            librarySubtitle = "${book.tomeCode} of 388 • Aether Ink $aetherInk • $collectionLine",
-            stateOverline = "Current Manifestation // ${book.sceneSignature}",
+            librarySubtitle = "${book.genre} • Episode ${featuredEpisode(book)}/${book.episodeCount} • Aether Ink $aetherInk • $collectionLine",
+            stateOverline = "Featured Tonight // ${book.sceneSignature}",
             ritualHint = ritualHint,
-            imageCaption = "${book.tomeCode.lowercase()} // ${book.title}",
+            imageCaption = "Ep ${featuredEpisode(book)} • ${book.runtimeMinutes} min",
             buttonLabel = if (state == TomeState.UNLEASHED) {
-                "Open Next Tome"
+                "Play Next Episode"
             } else {
-                "Advance The Rite"
+                "Continue Listening"
             },
             eventBanner = eventBanner,
             shareText = shareText
@@ -245,6 +264,19 @@ class LibraryEngine {
 
     private fun buildBooks(): List<LibraryBook> {
         val titles = buildUniqueTitles(388)
+        val genres = listOf(
+            "Dark Fantasy",
+            "LitRPG",
+            "Romance",
+            "War Epic",
+            "Thriller",
+            "Sci-Fi",
+            "Horror",
+            "Academy",
+            "Apocalypse",
+            "Urban Fantasy",
+            "Court Intrigue"
+        )
         val arcNames = listOf(
             "Primordial Record", "Ash Court Cycle", "Velvet Eclipse", "Salt Cathedral", "Hollow Mercy",
             "The Glass Oath", "Starless Bloom", "The Red Lantern Pact"
@@ -273,9 +305,14 @@ class LibraryEngine {
 
         return List(388) { index ->
             val anchor = canonAnchors[index % canonAnchors.size]
+            val genre = genres[index % genres.size]
             LibraryBook(
                 id = index,
                 title = titles[index],
+                genre = genre,
+                hookLine = buildHookLine(titles[index], genre),
+                episodeCount = 36 + (index % 19),
+                runtimeMinutes = 18 + (index % 14),
                 arcName = arcNames[index % arcNames.size],
                 friendshipThread = friendships[index % friendships.size],
                 enemyThread = enemies[(index + 2) % enemies.size],
@@ -283,6 +320,64 @@ class LibraryEngine {
                 canonAnchor = anchor
             )
         }
+    }
+
+    private fun buildHookLine(title: String, genre: String): String {
+        return when (genre) {
+            "Dark Fantasy" -> "A ruthless oath, a wounded kingdom, and one name the dead still whisper."
+            "LitRPG" -> "Levels climb fast when the world wants you erased before sunrise."
+            "Romance" -> "Love arrives wearing the wrong face, and the wrong choice still feels right."
+            "War Epic" -> "Every victory costs a friend, and every banner hides a betrayal."
+            "Thriller" -> "One secret, one missing witness, and one night before everything collapses."
+            "Sci-Fi" -> "Signals from the dark keep finding the one survivor who should not exist."
+            "Horror" -> "The door opens only once, and this story begins after it should have stayed shut."
+            "Academy" -> "Power, ranking, rivalry, and the class everyone thinks won't survive the term."
+            "Apocalypse" -> "The world ended badly; surviving the people left behind is even worse."
+            "Urban Fantasy" -> "Magic runs under the city after midnight, and the rent is always blood."
+            "Court Intrigue" -> "The crown smiles in public and sharpens knives in private."
+            else -> "$title bends fate before the first episode ends."
+        }
+    }
+
+    private fun railItemsFrom(startIndex: Int, preferredGenres: List<String>, count: Int): List<HomeRailItem> {
+        val preferred = books
+            .asSequence()
+            .drop(startIndex)
+            .plus(books.asSequence().take(startIndex))
+            .filter { preferredGenres.contains(it.genre) }
+            .take(count)
+            .toList()
+
+        val fallback = books
+            .asSequence()
+            .drop((startIndex + 5) % books.size)
+            .plus(books.asSequence().take((startIndex + 5) % books.size))
+            .filter { book -> preferred.none { it.id == book.id } }
+            .take((count - preferred.size).coerceAtLeast(0))
+            .toList()
+
+        return (preferred + fallback).take(count).map { book ->
+            HomeRailItem(
+                id = book.id,
+                title = book.title,
+                genre = book.genre,
+                meta = "Ep ${featuredEpisode(book)} • ${book.runtimeMinutes} min",
+                hookLine = book.hookLine
+            )
+        }
+    }
+
+    private fun featuredEpisode(book: LibraryBook): Int {
+        return ((book.id + awakenCount) % book.episodeCount) + 1
+    }
+
+    private fun listeningProgressFor(book: LibraryBook): Int {
+        return 18 + (((book.id * 13) + (awakenCount * 11)) % 71)
+    }
+
+    private fun minutesRemainingFor(book: LibraryBook): Int {
+        val progress = listeningProgressFor(book)
+        return ((100 - progress) * book.runtimeMinutes / 100).coerceAtLeast(4)
     }
 
     private fun buildUniqueTitles(count: Int): List<String> {

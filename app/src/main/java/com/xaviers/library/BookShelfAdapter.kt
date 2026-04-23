@@ -53,7 +53,7 @@ class BookShelfAdapter(
 
             binding.bookShelfCode.text = entry.tomeCode
             binding.bookShelfTitle.text = entry.title
-            binding.bookShelfMeta.text = "${entry.arcName} • ${entry.sceneSignature}"
+            binding.bookShelfMeta.text = "${entry.genre} • ${entry.arcName}"
             binding.bookShelfSeed.text = entry.seedLine
             binding.bookShelfState.text = when {
                 isSelected && isFocused -> context.getString(R.string.book_state_selected_focused)
